@@ -9,9 +9,10 @@ namespace Quantum
   {
     public override bool Decide(Frame f, EntityRef e)
     {
-      var fields = f.Get<CharacterFields>(e);
-      var ballOwnerFields = f.Get<CharacterFields>(f.Global->BallOwner);
-      return ballOwnerFields.Player == fields.Player;
+      return false;
+      // var fields = f.Get<CharacterFields>(e);
+      // var ballOwnerFields = f.Get<CharacterFields>(f.Global->BallOwner);
+      // return ballOwnerFields.Player == fields.Player;
     }
   }
 }

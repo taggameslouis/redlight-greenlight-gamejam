@@ -26,12 +26,7 @@ public unsafe class LocalInput : MonoBehaviour
 			directional *= -1;
 		}
 		i.Direction = directional;
-
-		i.Kick = _playerInput.actions["Kick"].IsPressed();
-		i.SwitchCharacter = _playerInput.actions["Switch"].IsPressed();
 		i.Sprint = _playerInput.actions["Sprint"].IsPressed();
-		i.Slide = _playerInput.actions["Slide"].IsPressed();
-		i.Pass = _playerInput.actions["Pass"].IsPressed();
 
 		callback.SetInput(i, DeterministicInputFlags.Repeatable);
 	}

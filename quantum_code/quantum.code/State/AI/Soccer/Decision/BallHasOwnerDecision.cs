@@ -9,7 +9,8 @@ namespace Quantum
   {
     public override bool Decide(Frame f, EntityRef e)
     {
-      return f.Exists(f.Global->BallOwner);
+      return false;
+      //return f.Exists(f.Global->BallOwner);
     }
   }
 }

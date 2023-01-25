@@ -21,17 +21,11 @@ namespace Quantum {
         // user systems go here
         new GameSystem(),
         new BotSDKDebuggerSystem(),
-        new CustomGravitySystem(),
+        //new CustomGravitySystem(),
         new SprintSystem(),
-        new CharacterSlideSystem(),
-        new PassSystem(),
         new MovementSystem(),
         new RespawnSystem(),
-        new CaptureBallSystem(),
-        new KickSystem(),
-        new SwitchCharacterSystem(),
         new GoalSystem(),
-        new CharacterFallSystem(),
         new CharacterAISystem(),
       };
     }

@@ -2,7 +2,7 @@
 
 component CharacterFields {
 	asset_ref<CharacterSpec> Spec;
-    player_ref Player;
+	player_ref Player;
 
 	FP FallenTimer;
 	FP SlideTimer;
@@ -22,7 +22,6 @@ event CharacterPass{EntityRef character;}
 event CharacterCaptureBall{EntityRef character;}
 event CharacterSprint{EntityRef character;}
 event CharacterSwitch{Int32 player; EntityRef character;}
-
 
 signal OnCharacterFall(EntityRef character);
 signal OnSwitchCharacter(PlayerRef player);

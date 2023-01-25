@@ -1,8 +1,4 @@
 ﻿input {
   FPVector2 Direction;
-  Button Kick;
-  Button Pass;
-  Button SwitchCharacter;
   Button Sprint;
-  Button Slide;
 }

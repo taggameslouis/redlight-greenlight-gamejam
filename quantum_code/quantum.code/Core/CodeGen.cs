@@ -42,11 +42,7 @@ namespace Quantum {
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
-    Kick = 1 << 0,
-    Pass = 1 << 1,
-    SwitchCharacter = 1 << 2,
-    Sprint = 1 << 3,
-    Slide = 1 << 4,
+    Sprint = 1 << 0,
   }
   public static unsafe partial class InputButtons_ext {
     public static Boolean IsFlagSet(this InputButtons self, InputButtons flag) {
@@ -1431,30 +1427,18 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct Input {
-    public const Int32 SIZE = 80;
+    public const Int32 SIZE = 32;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(64)]
+    [FieldOffset(16)]
     public FPVector2 Direction;
     [FieldOffset(0)]
-    public Button Kick;
-    [FieldOffset(12)]
-    public Button Pass;
-    [FieldOffset(24)]
-    public Button Slide;
-    [FieldOffset(36)]
     public Button Sprint;
-    [FieldOffset(48)]
-    public Button SwitchCharacter;
     public const int MAX_COUNT = 2;
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 179;
         hash = hash * 31 + Direction.GetHashCode();
-        hash = hash * 31 + Kick.GetHashCode();
-        hash = hash * 31 + Pass.GetHashCode();
-        hash = hash * 31 + Slide.GetHashCode();
         hash = hash * 31 + Sprint.GetHashCode();
-        hash = hash * 31 + SwitchCharacter.GetHashCode();
         return hash;
       }
     }
@@ -1468,31 +1452,19 @@ namespace Quantum {
     }
     public Boolean IsDown(InputButtons button) {
       switch (button) {
-        case InputButtons.Kick: return Kick.IsDown;
-        case InputButtons.Pass: return Pass.IsDown;
-        case InputButtons.SwitchCharacter: return SwitchCharacter.IsDown;
         case InputButtons.Sprint: return Sprint.IsDown;
-        case InputButtons.Slide: return Slide.IsDown;
       }
       return false;
     }
     public Boolean WasPressed(InputButtons button) {
       switch (button) {
-        case InputButtons.Kick: return Kick.WasPressed;
-        case InputButtons.Pass: return Pass.WasPressed;
-        case InputButtons.SwitchCharacter: return SwitchCharacter.WasPressed;
         case InputButtons.Sprint: return Sprint.WasPressed;
-        case InputButtons.Slide: return Slide.WasPressed;
       }
       return false;
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (Input*)ptr;
-        Button.Serialize(&p->Kick, serializer);
-        Button.Serialize(&p->Pass, serializer);
-        Button.Serialize(&p->Slide, serializer);
         Button.Serialize(&p->Sprint, serializer);
-        Button.Serialize(&p->SwitchCharacter, serializer);
         FPVector2.Serialize(&p->Direction, serializer);
     }
   }
@@ -1528,7 +1500,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 792;
+    public const Int32 SIZE = 696;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(32)]
     public EntityRef Ball;
@@ -1536,7 +1508,7 @@ namespace Quantum {
     public EntityRef BallOwner;
     [FieldOffset(48)]
     public FP DeltaTime;
-    [FieldOffset(168)]
+    [FieldOffset(232)]
     public FrameMetaData FrameMetaData;
     [FieldOffset(56)]
     public FP GoalDelayTimer;
@@ -1552,22 +1524,22 @@ namespace Quantum {
     public FP MatchTimer;
     [FieldOffset(80)]
     public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(496)]
+    [FieldOffset(400)]
     public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(24)]
     public BitSet2 PlayerLastConnectionState;
-    [FieldOffset(104)]
+    [FieldOffset(168)]
     [FramePrinter.FixedArrayAttribute(typeof(PlayerFields), 2)]
     private fixed Byte _Players_[64];
     [FieldOffset(88)]
     public RNGSession RngSession;
     [FieldOffset(0)]
     public GameState State;
-    [FieldOffset(368)]
+    [FieldOffset(272)]
     public BitSet1024 Systems;
-    [FieldOffset(208)]
+    [FieldOffset(104)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 2)]
-    private fixed Byte _input_[160];
+    private fixed Byte _input_[64];
     public FixedArray<PlayerFields> Players {
       get {
         fixed (byte* p = _Players_) { return new FixedArray<PlayerFields>(p, 32, 2); }
@@ -1575,7 +1547,7 @@ namespace Quantum {
     }
     public FixedArray<Input> input {
       get {
-        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 80, 2); }
+        fixed (byte* p = _input_) { return new FixedArray<Input>(p, 32, 2); }
       }
     }
     public override Int32 GetHashCode() {
@@ -1617,9 +1589,9 @@ namespace Quantum {
         FP.Serialize(&p->MatchTimer, serializer);
         NavMeshRegionMask.Serialize(&p->NavMeshRegions, serializer);
         RNGSession.Serialize(&p->RngSession, serializer);
+        FixedArray.Serialize(p->input, serializer, StaticDelegates.SerializeInput);
         FixedArray.Serialize(p->Players, serializer, StaticDelegates.SerializePlayerFields);
         FrameMetaData.Serialize(&p->FrameMetaData, serializer);
-        FixedArray.Serialize(p->input, serializer, StaticDelegates.SerializeInput);
         Quantum.BitSet1024.Serialize(&p->Systems, serializer);
         PhysicsSceneSettings.Serialize(&p->PhysicsSettings, serializer);
     }
@@ -2273,11 +2245,7 @@ namespace Quantum {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
       var i = _globals->input.GetPointer(player);
       i->Direction = input.Direction;
-      i->Kick = i->Kick.Update(this.Number, input.Kick);
-      i->Pass = i->Pass.Update(this.Number, input.Pass);
-      i->SwitchCharacter = i->SwitchCharacter.Update(this.Number, input.SwitchCharacter);
       i->Sprint = i->Sprint.Update(this.Number, input.Sprint);
-      i->Slide = i->Slide.Update(this.Number, input.Slide);
     }
     public Input* GetPlayerInput(Int32 player) {
       if ((uint)player >= (uint)_globals->input.Length) { throw new System.ArgumentOutOfRangeException("player"); }
@@ -3496,19 +3464,11 @@ namespace Quantum.Prototypes {
   [Prototype(typeof(Input))]
   public sealed unsafe partial class Input_Prototype : StructPrototype {
     public FPVector2 Direction;
-    public Button Kick;
-    public Button Pass;
-    public Button SwitchCharacter;
     public Button Sprint;
-    public Button Slide;
     partial void MaterializeUser(Frame frame, ref Input result, in PrototypeMaterializationContext context);
     public void Materialize(Frame frame, ref Input result, in PrototypeMaterializationContext context) {
       result.Direction = this.Direction;
-      result.Kick = this.Kick;
-      result.Pass = this.Pass;
-      result.Slide = this.Slide;
       result.Sprint = this.Sprint;
-      result.SwitchCharacter = this.SwitchCharacter;
       MaterializeUser(frame, ref result, in context);
     }
   }
