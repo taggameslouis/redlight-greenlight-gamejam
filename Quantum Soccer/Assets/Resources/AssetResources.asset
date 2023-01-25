@@ -1,0 +1,303 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd8e95ae0daaec4496511105240e8a3, type: 3}
+  m_Name: AssetResources
+  m_EditorClassIdentifier: 
+  AssetBundlesGroup:
+    _resources: []
+  ResourcesGroup:
+    _resources:
+    - Path: Resources/DB/Configs/DefaultPhysicsMaterial
+      AssetRef:
+        Id:
+          Value: 1
+      ResourcePath: DB/Configs/DefaultPhysicsMaterial
+    - Path: Resources/DB/Configs/DefaultNavMeshAgentConfig
+      AssetRef:
+        Id:
+          Value: 2
+      ResourcePath: DB/Configs/DefaultNavMeshAgentConfig
+    - Path: Resources/DB/Configs/DefaultCharacterController2D
+      AssetRef:
+        Id:
+          Value: 3
+      ResourcePath: DB/Configs/DefaultCharacterController2D
+    - Path: Resources/DB/Configs/DefaultCharacterController3D
+      AssetRef:
+        Id:
+          Value: 4
+      ResourcePath: DB/Configs/DefaultCharacterController3D
+    - Path: Resources/DB/Configs/SimulationConfig
+      AssetRef:
+        Id:
+          Value: 5
+      ResourcePath: DB/Configs/SimulationConfig
+    - Path: Resources/DB/Character/KCCSlideSettingsAsset
+      AssetRef:
+        Id:
+          Value: 612142881368737
+      ResourcePath: DB/Character/KCCSlideSettingsAsset
+    - Path: Resources/DB/Character/CharacterTeamA|EntityView
+      AssetRef:
+        Id:
+          Value: 65839945867159663
+      ResourcePath: DB/Character/CharacterTeamA
+    - Path: Resources/DB/Character/KCCSettingsAsset
+      AssetRef:
+        Id:
+          Value: 157212461012189321
+      ResourcePath: DB/Character/KCCSettingsAsset
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_6
+      AssetRef:
+        Id:
+          Value: 182585040576075859
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Character/Character|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 303002958072063535
+      ResourcePath: DB/Character/Character
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+      AssetRef:
+        Id:
+          Value: 333162205836181013
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|DefendPosition_1
+      AssetRef:
+        Id:
+          Value: 734523954046685753
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_8
+      AssetRef:
+        Id:
+          Value: 766766741057361368
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallOwnerIsTeammateDecision_19
+      AssetRef:
+        Id:
+          Value: 1035677665790822179
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMNotDecision_18
+      AssetRef:
+        Id:
+          Value: 1084741191875004461
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Character/KCCSprintSettingsAsset
+      AssetRef:
+        Id:
+          Value: 1265315247387703283
+      ResourcePath: DB/Character/KCCSprintSettingsAsset
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_1
+      AssetRef:
+        Id:
+          Value: 1275633077142794167
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallOwnerIsTeammateDecision_5
+      AssetRef:
+        Id:
+          Value: 1450857496084662612
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/GameSpecAsset
+      AssetRef:
+        Id:
+          Value: 1467359621835538955
+      ResourcePath: DB/GameSpecAsset
+    - Path: Resources/DB/Map1
+      AssetRef:
+        Id:
+          Value: 1710471675203725834
+      ResourcePath: DB/Map1
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|GoToPosition_2
+      AssetRef:
+        Id:
+          Value: 1868942098516811040
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_1
+      AssetRef:
+        Id:
+          Value: 1959792180973674373
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Character/CharacterTeamA|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2097721193279194197
+      ResourcePath: DB/Character/CharacterTeamA
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMNotDecision_0
+      AssetRef:
+        Id:
+          Value: 2196922431174067892
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMNotDecision_13
+      AssetRef:
+        Id:
+          Value: 2251008506666626308
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Character/CharacterTeamB|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 2322496396216664270
+      ResourcePath: DB/Character/CharacterTeamB
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_20
+      AssetRef:
+        Id:
+          Value: 2395866965032657711
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|DefendPosition_0
+      AssetRef:
+        Id:
+          Value: 2454802102348136473
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_14
+      AssetRef:
+        Id:
+          Value: 2469638151852979164
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMAndDecision_9
+      AssetRef:
+        Id:
+          Value: 2485577768099328041
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_2
+      AssetRef:
+        Id:
+          Value: 2516062381144439041
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMAndDecision_16
+      AssetRef:
+        Id:
+          Value: 2644162600565979684
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|InitialState_0
+      AssetRef:
+        Id:
+          Value: 2661489594450789027
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallHasOwnerDecision_11
+      AssetRef:
+        Id:
+          Value: 2682135944488893921
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Map1_mesh
+      AssetRef:
+        Id:
+          Value: 2715959183951731249
+      ResourcePath: DB/Map1_mesh
+    - Path: Resources/DB/Character/Character|EntityView
+      AssetRef:
+        Id:
+          Value: 2759649410508393377
+      ResourcePath: DB/Character/Character
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|DefendPositionAction_0
+      AssetRef:
+        Id:
+          Value: 2791928261263214677
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMAndDecision_15
+      AssetRef:
+        Id:
+          Value: 2829148788728603073
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMNotDecision_7
+      AssetRef:
+        Id:
+          Value: 2834001546073790830
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMNotDecision_10
+      AssetRef:
+        Id:
+          Value: 2891092113596588739
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|InitialState_3
+      AssetRef:
+        Id:
+          Value: 3023608359445779382
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallHasOwnerDecision_17
+      AssetRef:
+        Id:
+          Value: 3044674655308398335
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallHasOwnerDecision_4
+      AssetRef:
+        Id:
+          Value: 3188595729756254063
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|LookForBallInPosition_1
+      AssetRef:
+        Id:
+          Value: 3310709531095548094
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Character/CharacterTeamB|EntityView
+      AssetRef:
+        Id:
+          Value: 3575563515510064731
+      ResourcePath: DB/Character/CharacterTeamB
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_12
+      AssetRef:
+        Id:
+          Value: 3605929398329845037
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|LookForBallPositionAction_1
+      AssetRef:
+        Id:
+          Value: 3647739725989152198
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+      AssetRef:
+        Id:
+          Value: 3756383715487882386
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMAndDecision_3
+      AssetRef:
+        Id:
+          Value: 3894496075588773374
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|DefendPositionAction_0
+      AssetRef:
+        Id:
+          Value: 3910825795759810732
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|GoToPositionAction_2
+      AssetRef:
+        Id:
+          Value: 3953380845738265456
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|HFSMAndDecision_2
+      AssetRef:
+        Id:
+          Value: 4040266000947602562
+      ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Ball/BallPhysicsMaterialAsset
+      AssetRef:
+        Id:
+          Value: 4042456387526916577
+      ResourcePath: DB/Ball/BallPhysicsMaterialAsset
+    - Path: Resources/DB/Ball/Ball|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 4064120196872071993
+      ResourcePath: DB/Ball/Ball
+    - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|HFSMNotDecision_0
+      AssetRef:
+        Id:
+          Value: 4348208724190085643
+      ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/Ball/Ball|EntityView
+      AssetRef:
+        Id:
+          Value: 4353798408605375262
+      ResourcePath: DB/Ball/Ball
+    - Path: Resources/DB/Character/CharacterSpecAsset
+      AssetRef:
+        Id:
+          Value: 4589420026254643356
+      ResourcePath: DB/Character/CharacterSpecAsset

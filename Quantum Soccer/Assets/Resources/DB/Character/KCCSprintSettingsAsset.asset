@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38dc7cbaed4c5854b9f52c2eb640ff6e, type: 3}
+  m_Name: KCCSprintSettingsAsset
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/Character/KCCSprintSettingsAsset
+      Guid:
+        Value: 1265315247387703283
+    Radius:
+      RawValue: 32768
+    MaxContacts: 2
+    AllowedPenetration:
+      RawValue: 6553
+    CorrectionSpeed:
+      RawValue: 983040
+    BaseSpeed:
+      RawValue: 983040
+    Acceleration:
+      RawValue: 6553600
+    Debug: 0

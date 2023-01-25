@@ -1,0 +1,29 @@
+# 2.1.1
+
+## Build 25 (Oct 07, 2022)
+
+- Quantum SDK upgrade to build 2.1.1 Stable 1123
+
+# 2.1.0
+
+## Build 24 (Sep 02, 2022)
+
+- Upgraded Quantum SDK to build 1108
+
+## Build 19 (Mar 23, 2022)
+
+- Upgraded to Unity 2020.3.20f
+- Upgraded to Quantum SDK 2.1.0 RC2N 935
+
+## Build 15 (Aug 24, 2021)
+
+**Bug Fixes**
+
+- Fixed: CI files
+
+# 2.1
+
+##Mar 18, 2020
+
+-Initial release
+

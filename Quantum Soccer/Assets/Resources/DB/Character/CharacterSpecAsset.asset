@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da99731c228a18747b1564997b4dddfe, type: 3}
+  m_Name: CharacterSpecAsset
+  m_EditorClassIdentifier: 
+  Settings:
+    Identifier:
+      Path: Resources/DB/Character/CharacterSpecAsset
+      Guid:
+        Value: 4589420026254643356
+    DefaultRunSettings:
+      Id:
+        Value: 157212461012189321
+    SprintRunSettings:
+      Id:
+        Value: 1265315247387703283
+    SlideSettings:
+      Id:
+        Value: 612142881368737
+    SlideDuration:
+      RawValue: 19660
+    StaminaUsageVelocity:
+      RawValue: 65536
+    StaminaRegenerationVelocity:
+      RawValue: 32768
+    PassAngle:
+      RawValue: 2949120
+    PassForce:
+      RawValue: 117964800
+    PassHeightFactor:
+      RawValue: 22937
+    KickForce:
+      RawValue: 163840000
+    KickHeight:
+      RawValue: 983040

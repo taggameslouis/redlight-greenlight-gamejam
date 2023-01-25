@@ -1,0 +1,38 @@
+What's New to RealToon V5.0.7 Update (May 2020)
+=====================================
+
+**(Main Update)**
+
+[New]
+
+- RealToon HDRP Version.
+- Adding instructions for Unpacking/Importing SRP's.
+
+
+
+**(Current included new Patch #4 For RealToon 5.0.7) January 2021 Release**
+
+[New]
+
+- Added SSGI (Screen Space Global Illumination) to RealToon HDRP.
+- Recursive Rendering (Transparency and Reflection) support. (RealToon HDRP)
+- HDRP 10 support. (RealToon HDRP)
+
+- New option "Remove Outline/Add Outline". (RealToon URP and RealToon HDRP)
+*This will completely remove or add outline on the shade file, this is not per material.
+*Useful if you are not really using the outline, want to use a 3rd party outline or want to use your own created outline method.
+*This will also reduce calls/draw calls when using the shader on an environment objects.
+
+[Fix]
+
+- Reflection probe smooth blend. (RealToon HDRP)
+
+
+
+
+#Read the "Change - Fix Log.txt." file for previous updates.
+#This update supports Unity 5, 2017, 2018, 2019, 2020, 2021 and future unity versions.
+
+[Other Notes]
+* If you encounter some problems or need help just contact by email.
+* For PS4 use, contact by email.

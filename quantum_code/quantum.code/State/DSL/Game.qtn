@@ -1,0 +1,32 @@
+﻿#pragma max_players 2
+
+asset GameSpec;
+
+component CustomGravity{
+	Boolean Grounded;
+	FP VerticalSpeed;
+}
+
+enum GameState { Paused, InitialKickDelay, InitialKick, GoalDelay, Running, Ended}
+
+global{
+	FP InitialKickDelay;
+	GameState State;
+	FP MatchTimer;
+	FP GoalDelayTimer;
+	Int32 LastGoalTeam;
+	Boolean IsFirstMatch;
+
+	EntityRef Ball;
+	EntityRef BallOwner;
+
+	array<PlayerFields>[2] Players;
+}
+
+synced event OnGoal{}
+synced event OnGameEnd{}
+
+signal OnInitialKick();
+signal OnGoalDelayEnd();
+signal OnGoal();
+signal OnMatchEnd();
