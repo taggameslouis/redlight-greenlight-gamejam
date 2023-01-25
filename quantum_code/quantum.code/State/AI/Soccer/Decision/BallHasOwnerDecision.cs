@@ -1,16 +1,15 @@
-﻿
-using System;
+﻿using System;
 using Photon.Deterministic;
 
 namespace Quantum
 {
-  [Serializable]
-  public unsafe class BallHasOwnerDecision : HFSMDecision
-  {
-    public override bool Decide(Frame f, EntityRef e)
+    [Serializable]
+    public unsafe class BallHasOwnerDecision : HFSMDecision
     {
-      return false;
-      //return f.Exists(f.Global->BallOwner);
+        public override bool Decide(Frame f, EntityRef e)
+        {
+            return false;
+            //return f.Exists(f.Global->BallOwner);
+        }
     }
-  }
 }

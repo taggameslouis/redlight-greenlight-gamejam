@@ -1,6 +1,0 @@
-﻿struct PlayerFields{
-	EntityRef ControlledCharacter;
-	Int32 PlayerScore;
-	FP HoldKickTimer;
-	FP HoldPassTimer;
-}

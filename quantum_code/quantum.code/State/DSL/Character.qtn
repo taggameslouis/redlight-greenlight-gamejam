@@ -1,6 +1,7 @@
 ﻿asset CharacterSpec;
 
-component CharacterFields {
+component CharacterFields
+{
 	asset_ref<CharacterSpec> Spec;
 	player_ref Player;
 
@@ -14,14 +15,36 @@ component CharacterFields {
 	Boolean InitWithBall;
 }
 
-synced event CharacterFall { EntityRef character; }
-synced event CharacterSlide { EntityRef character; }
+synced event CharacterFall
+{
+    EntityRef character;
+}
+synced event CharacterSlide
+{
+    EntityRef character;
+}
 
-event CharacterKick{EntityRef character;}
-event CharacterPass{EntityRef character;}
-event CharacterCaptureBall{EntityRef character;}
-event CharacterSprint{EntityRef character;}
-event CharacterSwitch{Int32 player; EntityRef character;}
+event CharacterKick
+{
+    EntityRef character;
+}
+event CharacterPass
+{
+    EntityRef character;
+}
+event CharacterCaptureBall
+{
+    EntityRef character;
+}
+event CharacterSprint
+{
+    EntityRef character;
+}
+event CharacterSwitch
+{
+    Int32 player;
+    EntityRef character;
+}
 
 signal OnCharacterFall(EntityRef character);
 signal OnSwitchCharacter(PlayerRef player);

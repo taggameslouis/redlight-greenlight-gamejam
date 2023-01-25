@@ -1,15 +1,15 @@
-﻿#pragma max_players 2
+﻿asset GameSpec;
 
-asset GameSpec;
-
-component CustomGravity{
+component CustomGravity
+{
 	Boolean Grounded;
 	FP VerticalSpeed;
 }
 
 enum GameState { Paused, InitialKickDelay, InitialKick, GoalDelay, Running, Ended}
 
-global{
+global
+{
 	FP InitialKickDelay;
 	GameState State;
 	FP MatchTimer;

@@ -19,23 +19,24 @@ MonoBehaviour:
         Value: 1467359621835538955
     MatchDuration:
       RawValue: 7864320
+    DefaultSpawnPosition:
+      X:
+        RawValue: 0
+      Y:
+        RawValue: 0
+      Z:
+        RawValue: 0
+    DefaultSpawnPositionSpacing:
+      X:
+        RawValue: 65536
+      Y:
+        RawValue: 65536
+    MaxNumberOfColumns: 10
     MaxCharacterPositionX:
       RawValue: 2555904
     MaxCharacterPositionY:
       RawValue: 1900544
-    FallenTime:
-      RawValue: 131072
     InitialKickDelay:
       RawValue: 0
     OnGoalDelay:
       RawValue: 131072
-    FieldLength:
-      RawValue: 5111808
-    BallBounceThreshold:
-      RawValue: -131072
-    BallRestitution:
-      RawValue: 32768
-    BallGravityForce:
-      RawValue: -1310720
-    BallRadius:
-      RawValue: 45875

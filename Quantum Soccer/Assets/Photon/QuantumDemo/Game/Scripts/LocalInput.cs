@@ -25,9 +25,8 @@ public unsafe class LocalInput : MonoBehaviour
 		{
 			directional *= -1;
 		}
+		
 		i.Direction = directional;
-		i.Sprint = _playerInput.actions["Sprint"].IsPressed();
-
 		callback.SetInput(i, DeterministicInputFlags.Repeatable);
 	}
 }

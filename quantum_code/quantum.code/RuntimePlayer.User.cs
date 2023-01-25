@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Quantum {
-  partial class RuntimePlayer {
-
-    public string Nickname;
-    partial void SerializeUserData(BitStream stream)
+namespace Quantum
+{
+    partial class RuntimePlayer
     {
-      stream.Serialize(ref Nickname);
+        public string Nickname;
+        public AssetRefEntityPrototype CharacterPrototype;
+
+        partial void SerializeUserData(BitStream stream)
+        {
+            stream.Serialize(ref Nickname);
+            stream.Serialize(ref CharacterPrototype);
+        }
     }
-  }
 }

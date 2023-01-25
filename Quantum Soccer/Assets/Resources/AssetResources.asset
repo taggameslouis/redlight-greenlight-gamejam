@@ -116,6 +116,11 @@ MonoBehaviour:
         Id:
           Value: 1710471675203725834
       ResourcePath: DB/Map1
+    - Path: Resources/DB/Character/CharacterTest|EntityView
+      AssetRef:
+        Id:
+          Value: 1728714615117961704
+      ResourcePath: DB/Character/CharacterTest
     - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|GoToPosition_2
       AssetRef:
         Id:
@@ -296,6 +301,11 @@ MonoBehaviour:
         Id:
           Value: 4353798408605375262
       ResourcePath: DB/Ball/Ball
+    - Path: Resources/DB/Character/CharacterTest|EntityPrototype
+      AssetRef:
+        Id:
+          Value: 4392335241930942325
+      ResourcePath: DB/Character/CharacterTest
     - Path: Resources/DB/Character/CharacterSpecAsset
       AssetRef:
         Id:

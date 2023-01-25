@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Photon/QuantumDemo/Menu/Menu.unity
+    guid: cc502d8c93eb40943b652c72000036d6
+  - enabled: 1
     path: Assets/Photon/QuantumDemo/Menu/MenuNew.unity
     guid: 378ced86f432a704592442440c95afda
   - enabled: 1

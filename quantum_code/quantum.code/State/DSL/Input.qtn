@@ -1,4 +1,4 @@
-﻿input {
-  FPVector2 Direction;
-  Button Sprint;
+﻿input
+{
+    FPVector2 Direction;
 }
