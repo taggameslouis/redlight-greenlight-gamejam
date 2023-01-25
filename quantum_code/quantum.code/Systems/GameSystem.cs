@@ -3,7 +3,7 @@ using Quantum.Core;
 
 namespace Quantum
 {
-	public unsafe class GameSystem : SystemMainThread, ISignalOnInitialKick, ISignalOnGoal, ISignalOnMatchEnd
+	public unsafe class GameSystem : SystemMainThread, ISignalOnGoal, ISignalOnMatchEnd
 	{
 		public void OnGoal(Frame f)
 		{
@@ -28,7 +28,6 @@ namespace Quantum
 
 		private void SetInitialKickDelay(Frame f)
 		{
-
 			f.Global->State = GameState.InitialKickDelay;
 			var gameSpec = f.FindAsset<GameSpec>(f.RuntimeConfig.GameSpec.Id);
 			f.Global->InitialKickDelay = gameSpec.InitialKickDelay;
@@ -36,10 +35,7 @@ namespace Quantum
 
 		public void OnInitialKick(Frame f)
 		{
-			f.Global->State = GameState.Running;
 		}
-
-
 
 		public override void Update(Frame f)
 		{
@@ -51,7 +47,7 @@ namespace Quantum
 				}
 				else
 				{
-					f.Global->State = GameState.InitialKick;
+					f.Global->State = GameState.Running;
 				}
 			}
 

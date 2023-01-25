@@ -1500,7 +1500,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 696;
+    public const Int32 SIZE = 632;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(32)]
     public EntityRef Ball;
@@ -1508,7 +1508,7 @@ namespace Quantum {
     public EntityRef BallOwner;
     [FieldOffset(48)]
     public FP DeltaTime;
-    [FieldOffset(232)]
+    [FieldOffset(168)]
     public FrameMetaData FrameMetaData;
     [FieldOffset(56)]
     public FP GoalDelayTimer;
@@ -1524,27 +1524,19 @@ namespace Quantum {
     public FP MatchTimer;
     [FieldOffset(80)]
     public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(400)]
+    [FieldOffset(336)]
     public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(24)]
     public BitSet2 PlayerLastConnectionState;
-    [FieldOffset(168)]
-    [FramePrinter.FixedArrayAttribute(typeof(PlayerFields), 2)]
-    private fixed Byte _Players_[64];
     [FieldOffset(88)]
     public RNGSession RngSession;
     [FieldOffset(0)]
     public GameState State;
-    [FieldOffset(272)]
+    [FieldOffset(208)]
     public BitSet1024 Systems;
     [FieldOffset(104)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 2)]
     private fixed Byte _input_[64];
-    public FixedArray<PlayerFields> Players {
-      get {
-        fixed (byte* p = _Players_) { return new FixedArray<PlayerFields>(p, 32, 2); }
-      }
-    }
     public FixedArray<Input> input {
       get {
         fixed (byte* p = _input_) { return new FixedArray<Input>(p, 32, 2); }
@@ -1566,7 +1558,6 @@ namespace Quantum {
         hash = hash * 31 + NavMeshRegions.GetHashCode();
         hash = hash * 31 + PhysicsSettings.GetHashCode();
         hash = hash * 31 + PlayerLastConnectionState.GetHashCode();
-        hash = hash * 31 + HashCodeUtils.GetArrayHashCode(Players);
         hash = hash * 31 + RngSession.GetHashCode();
         hash = hash * 31 + (Int32)State;
         hash = hash * 31 + Systems.GetHashCode();
@@ -1590,7 +1581,6 @@ namespace Quantum {
         NavMeshRegionMask.Serialize(&p->NavMeshRegions, serializer);
         RNGSession.Serialize(&p->RngSession, serializer);
         FixedArray.Serialize(p->input, serializer, StaticDelegates.SerializeInput);
-        FixedArray.Serialize(p->Players, serializer, StaticDelegates.SerializePlayerFields);
         FrameMetaData.Serialize(&p->FrameMetaData, serializer);
         Quantum.BitSet1024.Serialize(&p->Systems, serializer);
         PhysicsSceneSettings.Serialize(&p->PhysicsSettings, serializer);
@@ -2157,7 +2147,6 @@ namespace Quantum {
     private ISignalOnSwitchCharacter[] _ISignalOnSwitchCharacterSystems;
     private ISignalOnSwitchToCharacter[] _ISignalOnSwitchToCharacterSystems;
     private ISignalOnCharacterMove[] _ISignalOnCharacterMoveSystems;
-    private ISignalOnInitialKick[] _ISignalOnInitialKickSystems;
     private ISignalOnGoalDelayEnd[] _ISignalOnGoalDelayEndSystems;
     private ISignalOnGoal[] _ISignalOnGoalSystems;
     private ISignalOnMatchEnd[] _ISignalOnMatchEndSystems;
@@ -2188,7 +2177,6 @@ namespace Quantum {
       _ISignalOnSwitchCharacterSystems = BuildSignalsArray<ISignalOnSwitchCharacter>();
       _ISignalOnSwitchToCharacterSystems = BuildSignalsArray<ISignalOnSwitchToCharacter>();
       _ISignalOnCharacterMoveSystems = BuildSignalsArray<ISignalOnCharacterMove>();
-      _ISignalOnInitialKickSystems = BuildSignalsArray<ISignalOnInitialKick>();
       _ISignalOnGoalDelayEndSystems = BuildSignalsArray<ISignalOnGoalDelayEnd>();
       _ISignalOnGoalSystems = BuildSignalsArray<ISignalOnGoal>();
       _ISignalOnMatchEndSystems = BuildSignalsArray<ISignalOnMatchEnd>();
@@ -2285,15 +2273,6 @@ namespace Quantum {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCharacterMove(_f, character, direction);
-          }
-        }
-      }
-      public void OnInitialKick() {
-        var array = _f._ISignalOnInitialKickSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnInitialKick(_f);
           }
         }
       }
@@ -2484,9 +2463,6 @@ namespace Quantum {
   }
   public unsafe interface ISignalOnCharacterMove : ISignal {
     void OnCharacterMove(Frame f, EntityRef character, FPVector2 direction);
-  }
-  public unsafe interface ISignalOnInitialKick : ISignal {
-    void OnInitialKick(Frame f);
   }
   public unsafe interface ISignalOnGoalDelayEnd : ISignal {
     void OnGoalDelayEnd(Frame f);
@@ -2905,7 +2881,6 @@ namespace Quantum {
     public static FrameSerializer.Delegate SerializeAssetRefBTDecorator;
     public static FrameSerializer.Delegate SerializeAssetRefGOAPTask;
     public static FrameSerializer.Delegate SerializeFP;
-    public static FrameSerializer.Delegate SerializePlayerFields;
     public static FrameSerializer.Delegate SerializeInput;
     static partial void InitGen() {
       SerializeBlackboardEntry = Quantum.BlackboardEntry.Serialize;
@@ -2917,7 +2892,6 @@ namespace Quantum {
       SerializeAssetRefBTDecorator = Quantum.AssetRefBTDecorator.Serialize;
       SerializeAssetRefGOAPTask = Quantum.AssetRefGOAPTask.Serialize;
       SerializeFP = FP.Serialize;
-      SerializePlayerFields = Quantum.PlayerFields.Serialize;
       SerializeInput = Quantum.Input.Serialize;
     }
   }

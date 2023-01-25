@@ -13,7 +13,7 @@ namespace Quantum
 			if (f.TryGet<BallFields>(info.Entity, out var ball))
 			{
 				var position = f.Get<Transform2D>(info.Entity).Position;
-				if (position.X > 0)
+				/*if (position.X > 0)
 				{
 					f.Global->Players.GetPointer(0)->PlayerScore++;
 					f.Global->LastGoalTeam = 0;
@@ -22,7 +22,7 @@ namespace Quantum
 				{
 					f.Global->Players.GetPointer(1)->PlayerScore++;
 					f.Global->LastGoalTeam = 1;
-				}
+				}*/
 			}
 			f.Signals.OnGoal();
 			f.Events.OnGoal();

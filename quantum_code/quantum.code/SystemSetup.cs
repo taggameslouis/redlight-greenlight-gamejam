@@ -21,8 +21,6 @@ namespace Quantum {
         // user systems go here
         new GameSystem(),
         new BotSDKDebuggerSystem(),
-        //new CustomGravitySystem(),
-        new SprintSystem(),
         new MovementSystem(),
         new RespawnSystem(),
         new GoalSystem(),

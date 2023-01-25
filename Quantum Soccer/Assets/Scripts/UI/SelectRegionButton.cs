@@ -4,43 +4,38 @@ using UnityEngine.UI;
 
 public sealed class SelectRegionButton : MonoBehaviour
 {
-  public Button Button;
-  public PhotonRegions.RegionInfo Region;
-  public System.Action<PhotonRegions.RegionInfo> onClick;
-  public int ButtonIndex;
+    public Button Button;
+    public PhotonRegions.RegionInfo Region;
+    public System.Action<PhotonRegions.RegionInfo> onClick;
+    public int ButtonIndex;
 
-  private LobbyController _lobbyControler;
-  private  Animator Animator;
+    private LobbyController _lobbyControler;
+    private Animator Animator;
 
-  private void Reset()
-  {
-    Button = GetComponent<Button>();
-  }
-
-  private void Awake()
-  {
-    _lobbyControler = GetComponentInParent<LobbyController>();
-    Animator = GetComponent<Animator>();
-    Button.onClick.AddListener(OnClick);
-  }
-
-  public void OnClick()
-  {
-    onClick?.Invoke(Region);
-  }
-
-  private void Update()
-  {
-    if (_lobbyControler == null) {
-      return;
-    }
-
-    if (_lobbyControler.CurrentRegion == ButtonIndex)
+    private void Reset()
     {
-      Animator.SetTrigger("Play");
+        Button = GetComponent<Button>();
     }
-    else {
-      Animator.SetTrigger("Stop");
+
+    private void Awake()
+    {
+        _lobbyControler = GetComponentInParent<LobbyController>();
+        Animator = GetComponent<Animator>();
+        Button.onClick.AddListener(OnClick);
     }
-  }
+
+    public void OnClick()
+    {
+        onClick?.Invoke(Region);
+    }
+
+    private void Update()
+    {
+        if (_lobbyControler == null) return;
+
+        if (_lobbyControler.CurrentRegion == ButtonIndex)
+            Animator.SetTrigger("Play");
+        else
+            Animator.SetTrigger("Stop");
+    }
 }

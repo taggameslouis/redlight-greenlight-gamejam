@@ -6,10 +6,10 @@ using Quantum;
 
 public unsafe class TimeBoardView : QuantumCallbacks
 {
-  public TextMeshProUGUI TimeBoardText;
+    public TextMeshProUGUI TimeBoardText;
 
-  public override void OnSimulateFinished(QuantumGame game, Frame f)
-  {
-    TimeBoardText.text = f.Global->MatchTimer.AsInt.ToString();
-  }
+    public override void OnSimulateFinished(QuantumGame game, Frame f)
+    {
+        TimeBoardText.text = f.Global->MatchTimer.AsInt.ToString();
+    }
 }

@@ -19,14 +19,11 @@ global{
 
 	EntityRef Ball;
 	EntityRef BallOwner;
-
-	array<PlayerFields>[2] Players;
 }
 
 synced event OnGoal{}
 synced event OnGameEnd{}
 
-signal OnInitialKick();
 signal OnGoalDelayEnd();
 signal OnGoal();
 signal OnMatchEnd();

@@ -6,20 +6,20 @@ using Quantum;
 
 public class TransitionController : MonoBehaviour
 {
-  public GameObject Transition;
+    public GameObject Transition;
 
-  void Start()
-  {
-    QuantumEvent.Subscribe<EventOnGameEnd>(this, OnGameEnd);
-  }
+    private void Start()
+    {
+        QuantumEvent.Subscribe<EventOnGameEnd>(this, OnGameEnd);
+    }
 
-  private void OnGameEnd(EventOnGameEnd e)
-  {
-    Transition.SetActive(true);
-  }
+    private void OnGameEnd(EventOnGameEnd e)
+    {
+        Transition.SetActive(true);
+    }
 
-  private void OnDisable()
-  {
-    QuantumEvent.UnsubscribeListener(this);
-  }
+    private void OnDisable()
+    {
+        QuantumEvent.UnsubscribeListener(this);
+    }
 }
