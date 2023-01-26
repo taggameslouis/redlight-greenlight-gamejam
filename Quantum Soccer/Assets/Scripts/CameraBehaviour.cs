@@ -30,7 +30,7 @@ public class CameraBehaviour : MonoBehaviour
         if (f == null)
             return;
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
 
         var targetPosition = Vector3.Lerp(transform.position, FocusTarget.transform.position + _offset, Time.deltaTime * Velocity);
         /*if (targetPosition.x > MaxX) targetPosition.x = MaxX;

@@ -31,8 +31,6 @@ MonoBehaviour:
       X:
         RawValue: 0
       Y:
-        RawValue: 0
-      Z:
         RawValue: -2097152
     DefaultSpawnPositionSpacing:
       X:

@@ -11,7 +11,7 @@ namespace Quantum
         public FP AmberLightDuration;
         public FP GreenLightDuration;
 
-        public FPVector3 DefaultSpawnPosition = FPVector3.Zero;
+        public FPVector2 DefaultSpawnPosition = FPVector2.Zero;
         public FPVector2 DefaultSpawnPositionSpacing = FPVector2.One * FP._10;
         public int MaxNumberOfColumns = 10;
 
@@ -29,7 +29,7 @@ namespace Quantum
             position.X += DefaultSpawnPositionSpacing.X * x;
             position.Y -= DefaultSpawnPositionSpacing.Y * y;
 
-            return position.XY;
+            return position;
         }
     }
 }

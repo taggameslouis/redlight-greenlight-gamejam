@@ -7,6 +7,9 @@ namespace Quantum
 	{
 		public override void Update(Frame f)
 		{
+			if (f.Global->CurrentGameState != GameState.Running)
+				return;
+				
 			foreach (var (entity, activePlayer) in f.Unsafe.GetComponentBlockIterator<ActivePlayer>())
 			{
 				var character = f.Get<CharacterFields>(entity);
@@ -33,11 +36,6 @@ namespace Quantum
 
 		private void MoveCharacter(Frame f, EntityRef character, FPVector2 direction)
 		{
-			if (f.Global->CurrentGameState != GameState.Running)
-			{
-				direction = FPVector2.Zero;
-			}
-			
 			var kcc = f.Unsafe.GetPointer<KCC>(character);
 			var settings = f.FindAsset<KCCSettings>(kcc->Settings.Id);
 			settings.Init(ref *kcc);

@@ -24,6 +24,7 @@
             if (frame.Unsafe.TryGetPointer<Transform2D>(entity, out var transform))
             {
                 transform->Position = startPosition;
+                transform->Rotation = 90 * Photon.Deterministic.FP.Deg2Rad;
             }
 
             Log.Debug($"[PlayerSpawnSystem] OnPlayerDataSet has spawned player {player}");
