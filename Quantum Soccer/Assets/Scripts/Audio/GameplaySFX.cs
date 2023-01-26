@@ -10,8 +10,8 @@ public class GameplaySFX : MonoBehaviour
         QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
         QuantumEvent.Subscribe<EventCharacterPass>(this, OnCharacterPass);
         QuantumEvent.Subscribe<EventCharacterCaptureBall>(this, OnCharacterCaptureBall);
-        QuantumEvent.Subscribe<EventBallBounce>(this, OnBallBounce);
-        QuantumEvent.Subscribe<EventBallCollide>(this, OnBallCollide);
+        //QuantumEvent.Subscribe<EventBallBounce>(this, OnBallBounce);
+        //QuantumEvent.Subscribe<EventBallCollide>(this, OnBallCollide);
         QuantumEvent.Subscribe<EventOnGoal>(this, OnGoal);
         QuantumEvent.Subscribe<EventCharacterSprint>(this, OnSprint);
         QuantumEvent.Subscribe<EventCharacterSlide>(this, OnSlide);
@@ -45,16 +45,16 @@ public class GameplaySFX : MonoBehaviour
         AudioManager.Instance.Play("goal");
         AudioManager.Instance.Play("whistle_start");
     }
-
-    private void OnBallCollide(EventBallCollide e)
-    {
-        AudioManager.Instance.Play("pass");
-    }
-
-    private void OnBallBounce(EventBallBounce e)
-    {
-        AudioManager.Instance.Play("ball_touch");
-    }
+    //
+    // private void OnBallCollide(EventBallCollide e)
+    // {
+    //     AudioManager.Instance.Play("pass");
+    // }
+    //
+    // private void OnBallBounce(EventBallBounce e)
+    // {
+    //     AudioManager.Instance.Play("ball_touch");
+    // }
 
     private void OnCharacterKick(EventCharacterKick e)
     {

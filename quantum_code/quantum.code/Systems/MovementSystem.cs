@@ -34,11 +34,11 @@ namespace Quantum
 				return;
 			}
 
-
 			if (inputDirection != FPVector2.Zero)
 			{
 				var angle = FPVector2.RadiansSigned(FPVector2.Right, inputDirection);
-				transform->Rotation = FPMath.LerpRadians(transform->Rotation, angle, f.DeltaTime * 15);
+
+				transform->Rotation = FPMath.LerpRadians(transform->Rotation, angle, f.DeltaTime * FP._3 * FP._10);
 			}
 
 			var direction = transform->Forward * inputDirection.Magnitude;

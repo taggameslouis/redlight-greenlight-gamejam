@@ -1,6 +1,0 @@
-﻿component BallFields{
-}
-
-event BallBounce{}
-event BallCollide{}
-

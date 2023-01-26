@@ -4,7 +4,7 @@
     {
         public void OnPlayerDataSet(Frame frame, PlayerRef player)
         {
-            Log.Error("OnPlayerDataSet");
+            Log.Warn("OnPlayerDataSet");
             
             var data = frame.GetPlayerData(player);
 

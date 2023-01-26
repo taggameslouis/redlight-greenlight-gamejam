@@ -843,8 +843,6 @@ MonoBehaviour:
   Prototypes:
   - AIBlackboardComponent: []
     BTAgent: []
-    BallFields:
-    - _empty_prototype_dummy_field_: 0
     CharacterFields: []
     CustomGravity:
     - Grounded:

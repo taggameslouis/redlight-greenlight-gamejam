@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3948916099609391614}
   - component: {fileID: 3948916099609391615}
   - component: {fileID: 3948916099609391612}
-  - component: {fileID: 918099649}
   - component: {fileID: 8857909784278770917}
   - component: {fileID: 158664459}
   m_Layer: 10
@@ -84,20 +83,21 @@ MonoBehaviour:
       RotationOffset:
         RawValue: 0
       UserTag: 0
-      CompoundShapes: []
       IsPersistent: 1
+      CompoundShapes: []
+      IsSetFromSourceCollider: 0
     Shape3D:
       ShapeType: 0
       SphereRadius:
         RawValue: 0
-      BoxExtents:
+      PositionOffset:
         X:
           RawValue: 0
         Y:
           RawValue: 0
         Z:
           RawValue: 0
-      PositionOffset:
+      BoxExtents:
         X:
           RawValue: 0
         Y:
@@ -112,14 +112,16 @@ MonoBehaviour:
         Z:
           RawValue: 0
       UserTag: 0
-      CompoundShapes: []
       IsPersistent: 1
+      CompoundShapes: []
+      IsSetFromSourceCollider: 0
     Layer: 10
     CallbackFlags:
       Value: 1040
   PhysicsBody:
     IsEnabled: 1
-    Version: 1
+    Version2D: 2
+    Version3D: 2
     Config2D: 116
     Config3D: 58
     RotationFreeze: 0
@@ -141,6 +143,10 @@ MonoBehaviour:
         RawValue: 0
       Z:
         RawValue: 0
+    GravityScale:
+      _hasValue: 0
+      _value:
+        RawValue: 65536
   NavMeshPathfinder:
     IsEnabled: 0
     NavMeshAgentConfig:
@@ -153,6 +159,8 @@ MonoBehaviour:
         X:
           RawValue: 0
         Y:
+          RawValue: 0
+        Z:
           RawValue: 0
       NavMesh:
         Reference: {fileID: 0}
@@ -192,20 +200,6 @@ MonoBehaviour:
       Value: 0
     VerticalSpeed:
       RawValue: 0
---- !u!114 &918099649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3948916099609391613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba42002fd5305242a4b3b20d68c2476, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prototype:
-    _empty_prototype_dummy_field_: 0
 --- !u!114 &8857909784278770917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BindBehaviour: 0
-  ManualDiposal: 0
+  ManualDisposal: 0
   GameObjectNameIsEntityRef: 1
   ErrorCorrectionRateMin: 3.3
   ErrorCorrectionRateMax: 10
@@ -269,6 +263,10 @@ PrefabInstance:
       value: Soccer Ball
       objectReference: {fileID: 0}
     - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -281,6 +279,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -290,14 +292,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4935240531098310, guid: ec3e8f3ed27e2244caaedaf589590a03, type: 3}

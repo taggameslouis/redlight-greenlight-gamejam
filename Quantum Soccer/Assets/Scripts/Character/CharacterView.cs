@@ -97,7 +97,7 @@ public unsafe class CharacterView : QuantumCallbacks
 
     private void UpdateArrow(Frame f, CharacterFields fields)
     {
-        if (f.Global->BallOwner != EntityView.EntityRef)
+       /* if (f.Global->BallOwner != EntityView.EntityRef)
         {
             Arrow.SetActive(false);
             return;
@@ -105,7 +105,7 @@ public unsafe class CharacterView : QuantumCallbacks
         else
         {
             Arrow.SetActive(true);
-        }
+        }*/
 
         /*var player = f.Global->Players.GetPointer(fields.Player);
         Arrow.transform.localScale = Vector3.one * (2 + player->HoldKickTimer.AsFloat * 2);*/

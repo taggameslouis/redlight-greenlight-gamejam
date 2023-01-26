@@ -10,8 +10,9 @@ namespace Quantum
 			if (f.Global->GoalDelayTimer > 0) {
 				return;
 			}
-			if (f.TryGet<BallFields>(info.Entity, out var ball))
-			{
+			
+			Log.Debug("GOAL SYSTEM >>>>>>>>>>>>>>>>>>");
+			
 				var position = f.Get<Transform2D>(info.Entity).Position;
 				/*if (position.X > 0)
 				{
@@ -23,7 +24,7 @@ namespace Quantum
 					f.Global->Players.GetPointer(1)->PlayerScore++;
 					f.Global->LastGoalTeam = 1;
 				}*/
-			}
+				
 			f.Signals.OnGoal();
 			f.Events.OnGoal();
 		}

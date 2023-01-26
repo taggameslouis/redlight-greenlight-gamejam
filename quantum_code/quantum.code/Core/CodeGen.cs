@@ -1463,19 +1463,15 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 664;
+    public const Int32 SIZE = 648;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(32)]
-    public EntityRef Ball;
-    [FieldOffset(40)]
-    public EntityRef BallOwner;
-    [FieldOffset(48)]
     public FP DeltaTime;
-    [FieldOffset(200)]
+    [FieldOffset(184)]
     public FrameMetaData FrameMetaData;
-    [FieldOffset(56)]
+    [FieldOffset(40)]
     public FP GoalDelayTimer;
-    [FieldOffset(64)]
+    [FieldOffset(48)]
     public FP InitialKickDelay;
     [FieldOffset(8)]
     public QBoolean IsFirstMatch;
@@ -1483,21 +1479,21 @@ namespace Quantum {
     public Int32 LastGoalTeam;
     [FieldOffset(16)]
     public AssetRefMap Map;
-    [FieldOffset(72)]
+    [FieldOffset(56)]
     public FP MatchTimer;
-    [FieldOffset(80)]
+    [FieldOffset(64)]
     public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(368)]
+    [FieldOffset(352)]
     public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(24)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(184)]
+    [FieldOffset(168)]
     public RNGSession RngSession;
     [FieldOffset(0)]
     public GameState State;
-    [FieldOffset(240)]
+    [FieldOffset(224)]
     public BitSet1024 Systems;
-    [FieldOffset(88)]
+    [FieldOffset(72)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
     private fixed Byte _input_[96];
     public FixedArray<Input> input {
@@ -1508,8 +1504,6 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 181;
-        hash = hash * 31 + Ball.GetHashCode();
-        hash = hash * 31 + BallOwner.GetHashCode();
         hash = hash * 31 + DeltaTime.GetHashCode();
         hash = hash * 31 + FrameMetaData.GetHashCode();
         hash = hash * 31 + GoalDelayTimer.GetHashCode();
@@ -1535,8 +1529,6 @@ namespace Quantum {
         QBoolean.Serialize(&p->IsFirstMatch, serializer);
         AssetRefMap.Serialize(&p->Map, serializer);
         Quantum.BitSet6.Serialize(&p->PlayerLastConnectionState, serializer);
-        EntityRef.Serialize(&p->Ball, serializer);
-        EntityRef.Serialize(&p->BallOwner, serializer);
         FP.Serialize(&p->DeltaTime, serializer);
         FP.Serialize(&p->GoalDelayTimer, serializer);
         FP.Serialize(&p->InitialKickDelay, serializer);
@@ -1918,22 +1910,6 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
-  public unsafe partial struct BallFields : Quantum.IComponent {
-    public const Int32 SIZE = 4;
-    public const Int32 ALIGNMENT = 4;
-    [FieldOffset(0)]
-    private fixed Byte _alignment_padding_[4];
-    public override Int32 GetHashCode() {
-      unchecked { 
-        var hash = 211;
-        return hash;
-      }
-    }
-    public static void Serialize(void* ptr, FrameSerializer serializer) {
-        var p = (BallFields*)ptr;
-    }
-  }
-  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct CharacterFields : Quantum.IComponent {
     public const Int32 SIZE = 80;
     public const Int32 ALIGNMENT = 8;
@@ -1959,7 +1935,7 @@ namespace Quantum {
     public FP Stamina;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 223;
+        var hash = 211;
         hash = hash * 31 + FallenTimer.GetHashCode();
         hash = hash * 31 + InitWithBall.GetHashCode();
         hash = hash * 31 + InitialPosition.GetHashCode();
@@ -1997,7 +1973,7 @@ namespace Quantum {
     public FP VerticalSpeed;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 227;
+        var hash = 223;
         hash = hash * 31 + Grounded.GetHashCode();
         hash = hash * 31 + VerticalSpeed.GetHashCode();
         return hash;
@@ -2033,7 +2009,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 229;
+        var hash = 227;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + CurrentTaskIndex.GetHashCode();
@@ -2063,7 +2039,7 @@ namespace Quantum {
     public HFSMData Data;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 233;
+        var hash = 229;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + Data.GetHashCode();
         return hash;
@@ -2089,7 +2065,7 @@ namespace Quantum {
     public FPVector2 Velocity;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 239;
+        var hash = 233;
         hash = hash * 31 + Acceleration.GetHashCode();
         hash = hash * 31 + MaxSpeed.GetHashCode();
         hash = hash * 31 + Settings.GetHashCode();
@@ -2126,7 +2102,6 @@ namespace Quantum {
       ComponentTypeId.Setup(() => {
         ComponentTypeId.Add<Quantum.AIBlackboardComponent>(Quantum.AIBlackboardComponent.Serialize, null, Quantum.AIBlackboardComponent.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.BTAgent>(Quantum.BTAgent.Serialize, null, Quantum.BTAgent.OnRemoved, ComponentFlags.None);
-        ComponentTypeId.Add<Quantum.BallFields>(Quantum.BallFields.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.CharacterFields>(Quantum.CharacterFields.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.CustomGravity>(Quantum.CustomGravity.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.GOAPAgent>(Quantum.GOAPAgent.Serialize, null, null, ComponentFlags.None);
@@ -2149,8 +2124,6 @@ namespace Quantum {
       BuildSignalsArrayOnComponentRemoved<Quantum.AIBlackboardComponent>();
       BuildSignalsArrayOnComponentAdded<Quantum.BTAgent>();
       BuildSignalsArrayOnComponentRemoved<Quantum.BTAgent>();
-      BuildSignalsArrayOnComponentAdded<Quantum.BallFields>();
-      BuildSignalsArrayOnComponentRemoved<Quantum.BallFields>();
       BuildSignalsArrayOnComponentAdded<CharacterController2D>();
       BuildSignalsArrayOnComponentRemoved<CharacterController2D>();
       BuildSignalsArrayOnComponentAdded<CharacterController3D>();
@@ -2267,7 +2240,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 11;
+      public const Int32 EVENT_TYPE_COUNT = 9;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -2284,8 +2257,6 @@ namespace Quantum {
           case EventCharacterSwitch.ID: return typeof(EventCharacterSwitch);
           case EventOnGoal.ID: return typeof(EventOnGoal);
           case EventOnGameEnd.ID: return typeof(EventOnGameEnd);
-          case EventBallBounce.ID: return typeof(EventBallBounce);
-          case EventBallCollide.ID: return typeof(EventBallCollide);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
@@ -2343,16 +2314,6 @@ namespace Quantum {
       public EventOnGameEnd OnGameEnd() {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnGameEnd>(EventOnGameEnd.ID);
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventBallBounce BallBounce() {
-        var ev = _f.Context.AcquireEvent<EventBallBounce>(EventBallBounce.ID);
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventBallCollide BallCollide() {
-        var ev = _f.Context.AcquireEvent<EventBallCollide>(EventBallCollide.ID);
         _f.AddEvent(ev);
         return ev;
       }
@@ -2658,52 +2619,6 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventBallBounce : EventBase {
-    public new const Int32 ID = 9;
-    protected EventBallBounce(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventBallBounce() : 
-        base(9, EventFlags.Server|EventFlags.Client) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 73;
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventBallCollide : EventBase {
-    public new const Int32 ID = 10;
-    protected EventBallCollide(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventBallCollide() : 
-        base(10, EventFlags.Server|EventFlags.Client) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 79;
-        return hash;
-      }
-    }
-  }
   public static unsafe partial class BitStreamExtensions {
     public static void Serialize(this IBitStream stream, ref AssetRefAIAction value) {
       stream.Serialize(ref value.Id.Value);
@@ -2812,9 +2727,6 @@ namespace Quantum {
     public virtual void Visit(Prototypes.BTAgent_Prototype prototype) {
       VisitFallback(prototype);
     }
-    public virtual void Visit(Prototypes.BallFields_Prototype prototype) {
-      VisitFallback(prototype);
-    }
     public virtual void Visit(Prototypes.CharacterFields_Prototype prototype) {
       VisitFallback(prototype);
     }
@@ -2892,7 +2804,6 @@ namespace Quantum {
       Register(typeof(Quantum.BTAgent), Quantum.BTAgent.SIZE);
       Register(typeof(Quantum.BTDataIndex), Quantum.BTDataIndex.SIZE);
       Register(typeof(Quantum.BTDataValue), Quantum.BTDataValue.SIZE);
-      Register(typeof(Quantum.BallFields), Quantum.BallFields.SIZE);
       Register(typeof(Quantum.BitSet1024), Quantum.BitSet1024.SIZE);
       Register(typeof(Quantum.BitSet128), Quantum.BitSet128.SIZE);
       Register(typeof(Quantum.BitSet2048), Quantum.BitSet2048.SIZE);
@@ -3190,24 +3101,6 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
-  [Prototype(typeof(BallFields))]
-  public sealed unsafe partial class BallFields_Prototype : ComponentPrototype<BallFields> {
-    [HideInInspector()]
-    public Int32 _empty_prototype_dummy_field_;
-    partial void MaterializeUser(Frame frame, ref BallFields result, in PrototypeMaterializationContext context);
-    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
-      BallFields component = default;
-      Materialize((Frame)f, ref component, in context);
-      return f.Set(entity, component) == SetResult.ComponentAdded;
-    }
-    public void Materialize(Frame frame, ref BallFields result, in PrototypeMaterializationContext context) {
-      MaterializeUser(frame, ref result, in context);
-    }
-    public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
-      ((ComponentPrototypeVisitor)visitor).Visit(this);
-    }
-  }
-  [System.SerializableAttribute()]
   [Prototype(typeof(BlackboardEntry))]
   public sealed unsafe partial class BlackboardEntry_Prototype : StructPrototype {
     public BlackboardValue_Prototype Value;
@@ -3435,8 +3328,6 @@ namespace Quantum.Prototypes {
     [ArrayLength(0, 1)]
     public List<Prototypes.BTAgent_Prototype> BTAgent;
     [ArrayLength(0, 1)]
-    public List<Prototypes.BallFields_Prototype> BallFields;
-    [ArrayLength(0, 1)]
     public List<Prototypes.CharacterFields_Prototype> CharacterFields;
     [ArrayLength(0, 1)]
     public List<Prototypes.CustomGravity_Prototype> CustomGravity;
@@ -3449,7 +3340,6 @@ namespace Quantum.Prototypes {
     partial void CollectGen(List<ComponentPrototype> target) {
       Collect(AIBlackboardComponent, target);
       Collect(BTAgent, target);
-      Collect(BallFields, target);
       Collect(CharacterFields, target);
       Collect(CustomGravity, target);
       Collect(GOAPAgent, target);
@@ -3462,9 +3352,6 @@ namespace Quantum.Prototypes {
       }
       public override void Visit(Prototypes.BTAgent_Prototype prototype) {
         Storage.Store(prototype, ref Storage.BTAgent);
-      }
-      public override void Visit(Prototypes.BallFields_Prototype prototype) {
-        Storage.Store(prototype, ref Storage.BallFields);
       }
       public override void Visit(Prototypes.CharacterFields_Prototype prototype) {
         Storage.Store(prototype, ref Storage.CharacterFields);

@@ -16,9 +16,6 @@ global
 	FP GoalDelayTimer;
 	Int32 LastGoalTeam;
 	Boolean IsFirstMatch;
-
-	EntityRef Ball;
-	EntityRef BallOwner;
 }
 
 synced event OnGoal{}
