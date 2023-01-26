@@ -15,16 +15,16 @@ public unsafe class CharacterView : QuantumCallbacks
 
     public void Start()
     {
-        QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
-        QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);
-        QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
+        //QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
+        //QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);
+        //QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
     }
 
     public void OnDisable()
     {
         QuantumEvent.UnsubscribeListener(this);
     }
-
+/*
     private void OnCharacterKick(EventCharacterKick e)
     {
         if (e.character == EntityView.EntityRef) Animator.SetTrigger("Kick");
@@ -38,7 +38,7 @@ public unsafe class CharacterView : QuantumCallbacks
     private void OnCharacterFall(EventCharacterFall e)
     {
         if (e.character == EntityView.EntityRef) Animator.SetTrigger("Fall");
-    }
+    }*/
 
     private void Update()
     {

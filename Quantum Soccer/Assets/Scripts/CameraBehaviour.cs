@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Quantum;
 
-public unsafe class CameraBehaviour : MonoBehaviour
+public class CameraBehaviour : MonoBehaviour
 {
     public GameObject Ball;
     public float Velocity = 10;
@@ -13,13 +13,11 @@ public unsafe class CameraBehaviour : MonoBehaviour
 
     private Vector3 _offset;
     private Vector3 InitialRotation;
-
-
+    
     private void Start()
     {
         _offset = transform.position;
     }
-
 
     private void LateUpdate()
     {
@@ -28,36 +26,23 @@ public unsafe class CameraBehaviour : MonoBehaviour
 
     private void MoveCamera(Vector3 ballPosition)
     {
-        if (QuantumRunner.Default == null && QuantumRunner.Default.Game == null) return;
+        if (QuantumRunner.Default == null && QuantumRunner.Default.Game == null)
+            return;
+
         var f = QuantumRunner.Default.Game.Frames.Verified;
-        if (f == null) return;
+        if (f == null)
+            return;
 
-        var isFirstMatch = f.Global->IsFirstMatch;
-        var offset = _offset;
-        if (isFirstMatch == false)
-        {
-            offset = new Vector3(offset.x, offset.y, -offset.z);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 180, transform.eulerAngles.z);
-        }
-        else
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
-        }
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
 
-        var targetPosition = Vector3.Lerp(transform.position, ballPosition + offset, Time.deltaTime * Velocity);
+        var targetPosition = Vector3.Lerp(transform.position, ballPosition + _offset, Time.deltaTime * Velocity);
         if (targetPosition.x > MaxX) targetPosition.x = MaxX;
         if (targetPosition.x < -MaxX) targetPosition.x = -MaxX;
 
-        if (isFirstMatch == false)
-        {
-            if (targetPosition.z < -MaxZ) targetPosition.z = -MaxZ;
-            if (targetPosition.z > -MinZ) targetPosition.z = -MinZ;
-        }
-        else
-        {
-            if (targetPosition.z > MaxZ) targetPosition.z = MaxZ;
-            if (targetPosition.z < MinZ) targetPosition.z = MinZ;
-        }
+        if (targetPosition.z > MaxZ)
+            targetPosition.z = MaxZ;
+        if (targetPosition.z < MinZ)
+            targetPosition.z = MinZ;
 
         transform.position = targetPosition;
     }

@@ -16,17 +16,8 @@ public unsafe class LocalInput : MonoBehaviour
 
 	public void PollInput(CallbackPollInput callback)
 	{
-		Quantum.Input i = new Quantum.Input();
-
-		FPVector2 directional = _playerInput.actions["Move"].ReadValue<Vector2>().ToFPVector2();
-
-		var f = callback.Game.Frames.Verified;
-		if (f.Global->IsFirstMatch == false)
-		{
-			directional *= -1;
-		}
-		
-		i.Direction = directional;
-		callback.SetInput(i, DeterministicInputFlags.Repeatable);
+		var playerInput = new Quantum.Input();
+		playerInput.Direction = _playerInput.actions["Move"].ReadValue<Vector2>().ToFPVector2();
+		callback.SetInput(playerInput, DeterministicInputFlags.Repeatable);
 	}
 }

@@ -27,9 +27,9 @@ namespace Quantum
                 new BotSDKDebuggerSystem(),
                 new MovementSystem(),
                 new PlayerSpawnSystem(),
-                new RespawnSystem(),
-                new GoalSystem(),
-                new CharacterAISystem()
+                new SafeZoneSystem(),
+                new CharacterAISystem(),
+                new TrafficLightSystem()
             };
         }
     }

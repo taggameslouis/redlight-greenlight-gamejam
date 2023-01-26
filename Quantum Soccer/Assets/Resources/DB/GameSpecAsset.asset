@@ -17,8 +17,16 @@ MonoBehaviour:
       Path: Resources/DB/GameSpecAsset
       Guid:
         Value: 1467359621835538955
+    InitialCountdown:
+      RawValue: 196608
     MatchDuration:
       RawValue: 7864320
+    RedLightDuration:
+      RawValue: 262144
+    AmberLightDuration:
+      RawValue: 65536
+    GreenLightDuration:
+      RawValue: 262144
     DefaultSpawnPosition:
       X:
         RawValue: 0
@@ -36,7 +44,3 @@ MonoBehaviour:
       RawValue: 2555904
     MaxCharacterPositionY:
       RawValue: 1900544
-    InitialKickDelay:
-      RawValue: 0
-    OnGoalDelay:
-      RawValue: 131072

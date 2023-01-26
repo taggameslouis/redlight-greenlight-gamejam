@@ -20,7 +20,7 @@ public unsafe class FinalScoreController : MonoBehaviour
     private void OnGameEnd(EventOnGameEnd e)
     {
         var f = e.Game.Frames.Verified;
-        if (f.Global->State == GameState.Ended)
+        if (f.Global->CurrentGameState == GameState.Ended)
         {
             var scoreA = 99; //f.Global->Players[0].PlayerScore;
             var scoreB = 99; //f.Global->Players[1].PlayerScore;

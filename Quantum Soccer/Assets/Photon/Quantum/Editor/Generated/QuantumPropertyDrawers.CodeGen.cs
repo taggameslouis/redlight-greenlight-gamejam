@@ -136,6 +136,7 @@ namespace Quantum.Editor {
 
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.GOAPWorldState_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.GameState_Prototype))]
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.TrafficLightState_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.InputButtons_Prototype))]
   partial class PrototypeDrawer {}
 }

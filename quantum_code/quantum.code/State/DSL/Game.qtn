@@ -6,21 +6,30 @@ component CustomGravity
 	FP VerticalSpeed;
 }
 
-enum GameState { Paused, InitialKickDelay, InitialKick, GoalDelay, Running, Ended}
+enum GameState { Paused, GameStart, Running, Ended}
+
+enum TrafficLightState { Red, Amber, Green }
 
 global
 {
-	FP InitialKickDelay;
-	GameState State;
+	GameState CurrentGameState;
+	
+	FP InitialCountdown;
 	FP MatchTimer;
-	FP GoalDelayTimer;
-	Int32 LastGoalTeam;
-	Boolean IsFirstMatch;
+	
+	FP RedLightDuration;
+	FP AmberLightDuration;
+	FP GreenLightDuration;
+	
+	TrafficLightState CurrentLightState;
+	FP CurrentLightDuration;
+	
 }
 
-synced event OnGoal{}
-synced event OnGameEnd{}
+synced event TrafficLightStateChanged { }
 
-signal OnGoalDelayEnd();
+synced event OnGoal { }
+synced event OnGameEnd { }
+
 signal OnGoal();
 signal OnMatchEnd();

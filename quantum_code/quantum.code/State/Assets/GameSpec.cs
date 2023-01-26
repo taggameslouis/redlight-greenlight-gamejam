@@ -4,7 +4,12 @@ namespace Quantum
 {
     public partial class GameSpec
     {
+        public FP InitialCountdown = 10;
         public FP MatchDuration = 120;
+        
+        public FP RedLightDuration;
+        public FP AmberLightDuration;
+        public FP GreenLightDuration;
 
         public FPVector3 DefaultSpawnPosition = FPVector3.Zero;
         public FPVector2 DefaultSpawnPositionSpacing = FPVector2.One * FP._10;
@@ -12,9 +17,6 @@ namespace Quantum
 
         public FP MaxCharacterPositionX = 41;
         public FP MaxCharacterPositionY = 31;
-
-        public FP InitialKickDelay = 0;
-        public FP OnGoalDelay = 3;
 
         public FPVector2 FindSpawnPositionForPlayer(int playerId)
         {

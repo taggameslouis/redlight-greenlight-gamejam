@@ -7,32 +7,17 @@ namespace Quantum
 	{
 		public override void Update(Frame f)
 		{
-			var charactersFilter = f.Filter<Transform2D, CharacterFields, KCC>();
-			while (charactersFilter.NextUnsafe(out var character, out var transform, out var fields, out var kcc))
+			foreach (var (entity, activePlayer) in f.Unsafe.GetComponentBlockIterator<ActivePlayer>())
 			{
-				if (fields->IsSliding)
-				{
-					continue;
-				}
-
-				if (fields->FallenTimer > 0)
-				{
-					continue;
-				}
-				var input = f.GetPlayerInput(fields->Player);
-				f.Signals.OnCharacterMove(character, input->Direction);
+				var character = f.Get<CharacterFields>(entity);
+				var input = f.GetPlayerInput(character.Player);
+				f.Signals.OnCharacterMove(entity, input->Direction);
 			}
 		}
 
 		public void OnCharacterMove(Frame f, EntityRef character, FPVector2 inputDirection)
 		{
 			var transform = f.Unsafe.GetPointer<Transform2D>(character);
-			var fields = f.Unsafe.GetPointer<CharacterFields>(character);
-
-			if (fields->FallenTimer > 0 || fields->IsSliding)
-			{
-				return;
-			}
 
 			if (inputDirection != FPVector2.Zero)
 			{
@@ -44,15 +29,15 @@ namespace Quantum
 			var direction = transform->Forward * inputDirection.Magnitude;
 
 			MoveCharacter(f, character, CharacterDirectionConstraints(f, character, direction, inputDirection));
-
 		}
 
 		private void MoveCharacter(Frame f, EntityRef character, FPVector2 direction)
 		{
-			if (f.Global->State != GameState.Running)
+			if (f.Global->CurrentGameState != GameState.Running)
 			{
 				direction = FPVector2.Zero;
 			}
+			
 			var kcc = f.Unsafe.GetPointer<KCC>(character);
 			var settings = f.FindAsset<KCCSettings>(kcc->Settings.Id);
 			settings.Init(ref *kcc);
@@ -61,6 +46,7 @@ namespace Quantum
 			settings.SteerAndMove(f, character, in movement);
 		}
 
+		// TODO: Can probably remove this
 		private FPVector2 CharacterDirectionConstraints(Frame f, EntityRef character, FPVector2 direction, FPVector2 input)
 		{
 			var newDirection = direction;

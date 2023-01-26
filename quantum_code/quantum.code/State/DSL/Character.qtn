@@ -4,49 +4,20 @@ component CharacterFields
 {
 	asset_ref<CharacterSpec> Spec;
 	player_ref Player;
-
-	FP FallenTimer;
-	FP SlideTimer;
-	FP Stamina;
 	FPVector2 InitialPosition;
-	FPVector2 SlideDirection;
-	Boolean IsSliding;
-	Boolean IsSprinting;
-	Boolean InitWithBall;
 }
 
-synced event CharacterFall
+component ActivePlayer
 {
-    EntityRef character;
-}
-synced event CharacterSlide
-{
-    EntityRef character;
 }
 
-event CharacterKick
+synced event CharacterWasCaught
 {
     EntityRef character;
 }
-event CharacterPass
+synced event CharacterIsSafe
 {
-    EntityRef character;
-}
-event CharacterCaptureBall
-{
-    EntityRef character;
-}
-event CharacterSprint
-{
-    EntityRef character;
-}
-event CharacterSwitch
-{
-    Int32 player;
     EntityRef character;
 }
 
-signal OnCharacterFall(EntityRef character);
-signal OnSwitchCharacter(PlayerRef player);
-signal OnSwitchToCharacter(PlayerRef player, EntityRef character);
 signal OnCharacterMove(EntityRef character, FPVector2 direction);

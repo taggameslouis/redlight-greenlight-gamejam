@@ -34,11 +34,14 @@ namespace Quantum {
   }
   public enum GameState : int {
     Paused,
-    InitialKickDelay,
-    InitialKick,
-    GoalDelay,
+    GameStart,
     Running,
     Ended,
+  }
+  public enum TrafficLightState : int {
+    Red,
+    Amber,
+    Green,
   }
   [System.FlagsAttribute()]
   public enum InputButtons : int {
@@ -1463,37 +1466,41 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 648;
+    public const Int32 SIZE = 664;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(32)]
-    public FP DeltaTime;
-    [FieldOffset(184)]
-    public FrameMetaData FrameMetaData;
-    [FieldOffset(40)]
-    public FP GoalDelayTimer;
-    [FieldOffset(48)]
-    public FP InitialKickDelay;
-    [FieldOffset(8)]
-    public QBoolean IsFirstMatch;
-    [FieldOffset(4)]
-    public Int32 LastGoalTeam;
-    [FieldOffset(16)]
-    public AssetRefMap Map;
-    [FieldOffset(56)]
-    public FP MatchTimer;
-    [FieldOffset(64)]
-    public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(352)]
-    public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(24)]
-    public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(168)]
-    public RNGSession RngSession;
+    public FP AmberLightDuration;
     [FieldOffset(0)]
-    public GameState State;
-    [FieldOffset(224)]
-    public BitSet1024 Systems;
+    public GameState CurrentGameState;
+    [FieldOffset(32)]
+    public FP CurrentLightDuration;
+    [FieldOffset(4)]
+    public TrafficLightState CurrentLightState;
+    [FieldOffset(40)]
+    public FP DeltaTime;
+    [FieldOffset(200)]
+    public FrameMetaData FrameMetaData;
+    [FieldOffset(48)]
+    public FP GreenLightDuration;
+    [FieldOffset(56)]
+    public FP InitialCountdown;
+    [FieldOffset(8)]
+    public AssetRefMap Map;
+    [FieldOffset(64)]
+    public FP MatchTimer;
+    [FieldOffset(80)]
+    public NavMeshRegionMask NavMeshRegions;
+    [FieldOffset(368)]
+    public PhysicsSceneSettings PhysicsSettings;
+    [FieldOffset(16)]
+    public BitSet6 PlayerLastConnectionState;
     [FieldOffset(72)]
+    public FP RedLightDuration;
+    [FieldOffset(184)]
+    public RNGSession RngSession;
+    [FieldOffset(240)]
+    public BitSet1024 Systems;
+    [FieldOffset(88)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
     private fixed Byte _input_[96];
     public FixedArray<Input> input {
@@ -1504,19 +1511,21 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked { 
         var hash = 181;
+        hash = hash * 31 + AmberLightDuration.GetHashCode();
+        hash = hash * 31 + (Int32)CurrentGameState;
+        hash = hash * 31 + CurrentLightDuration.GetHashCode();
+        hash = hash * 31 + (Int32)CurrentLightState;
         hash = hash * 31 + DeltaTime.GetHashCode();
         hash = hash * 31 + FrameMetaData.GetHashCode();
-        hash = hash * 31 + GoalDelayTimer.GetHashCode();
-        hash = hash * 31 + InitialKickDelay.GetHashCode();
-        hash = hash * 31 + IsFirstMatch.GetHashCode();
-        hash = hash * 31 + LastGoalTeam.GetHashCode();
+        hash = hash * 31 + GreenLightDuration.GetHashCode();
+        hash = hash * 31 + InitialCountdown.GetHashCode();
         hash = hash * 31 + Map.GetHashCode();
         hash = hash * 31 + MatchTimer.GetHashCode();
         hash = hash * 31 + NavMeshRegions.GetHashCode();
         hash = hash * 31 + PhysicsSettings.GetHashCode();
         hash = hash * 31 + PlayerLastConnectionState.GetHashCode();
+        hash = hash * 31 + RedLightDuration.GetHashCode();
         hash = hash * 31 + RngSession.GetHashCode();
-        hash = hash * 31 + (Int32)State;
         hash = hash * 31 + Systems.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(input);
         return hash;
@@ -1524,15 +1533,17 @@ namespace Quantum {
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (_globals_*)ptr;
-        serializer.Stream.Serialize((Int32*)&p->State);
-        serializer.Stream.Serialize(&p->LastGoalTeam);
-        QBoolean.Serialize(&p->IsFirstMatch, serializer);
+        serializer.Stream.Serialize((Int32*)&p->CurrentGameState);
+        serializer.Stream.Serialize((Int32*)&p->CurrentLightState);
         AssetRefMap.Serialize(&p->Map, serializer);
         Quantum.BitSet6.Serialize(&p->PlayerLastConnectionState, serializer);
+        FP.Serialize(&p->AmberLightDuration, serializer);
+        FP.Serialize(&p->CurrentLightDuration, serializer);
         FP.Serialize(&p->DeltaTime, serializer);
-        FP.Serialize(&p->GoalDelayTimer, serializer);
-        FP.Serialize(&p->InitialKickDelay, serializer);
+        FP.Serialize(&p->GreenLightDuration, serializer);
+        FP.Serialize(&p->InitialCountdown, serializer);
         FP.Serialize(&p->MatchTimer, serializer);
+        FP.Serialize(&p->RedLightDuration, serializer);
         NavMeshRegionMask.Serialize(&p->NavMeshRegions, serializer);
         FixedArray.Serialize(p->input, serializer, StaticDelegates.SerializeInput);
         RNGSession.Serialize(&p->RngSession, serializer);
@@ -1808,6 +1819,22 @@ namespace Quantum {
     }
   }
   [StructLayout(LayoutKind.Explicit)]
+  public unsafe partial struct ActivePlayer : Quantum.IComponent {
+    public const Int32 SIZE = 4;
+    public const Int32 ALIGNMENT = 4;
+    [FieldOffset(0)]
+    private fixed Byte _alignment_padding_[4];
+    public override Int32 GetHashCode() {
+      unchecked { 
+        var hash = 199;
+        return hash;
+      }
+    }
+    public static void Serialize(void* ptr, FrameSerializer serializer) {
+        var p = (ActivePlayer*)ptr;
+    }
+  }
+  [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct BTAgent : Quantum.IComponent {
     public const Int32 SIZE = 48;
     public const Int32 ALIGNMENT = 8;
@@ -1874,7 +1901,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 199;
+        var hash = 211;
         hash = hash * 31 + ActiveServicesPtr.GetHashCode();
         hash = hash * 31 + BTDataValuesPtr.GetHashCode();
         hash = hash * 31 + Config.GetHashCode();
@@ -1911,56 +1938,28 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct CharacterFields : Quantum.IComponent {
-    public const Int32 SIZE = 80;
+    public const Int32 SIZE = 32;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(24)]
-    public FP FallenTimer;
-    [FieldOffset(4)]
-    public QBoolean InitWithBall;
-    [FieldOffset(48)]
+    [FieldOffset(16)]
     public FPVector2 InitialPosition;
-    [FieldOffset(8)]
-    public QBoolean IsSliding;
-    [FieldOffset(12)]
-    public QBoolean IsSprinting;
     [FieldOffset(0)]
     public PlayerRef Player;
-    [FieldOffset(64)]
-    public FPVector2 SlideDirection;
-    [FieldOffset(32)]
-    public FP SlideTimer;
-    [FieldOffset(16)]
+    [FieldOffset(8)]
     public AssetRefCharacterSpec Spec;
-    [FieldOffset(40)]
-    public FP Stamina;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 211;
-        hash = hash * 31 + FallenTimer.GetHashCode();
-        hash = hash * 31 + InitWithBall.GetHashCode();
+        var hash = 223;
         hash = hash * 31 + InitialPosition.GetHashCode();
-        hash = hash * 31 + IsSliding.GetHashCode();
-        hash = hash * 31 + IsSprinting.GetHashCode();
         hash = hash * 31 + Player.GetHashCode();
-        hash = hash * 31 + SlideDirection.GetHashCode();
-        hash = hash * 31 + SlideTimer.GetHashCode();
         hash = hash * 31 + Spec.GetHashCode();
-        hash = hash * 31 + Stamina.GetHashCode();
         return hash;
       }
     }
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (CharacterFields*)ptr;
         PlayerRef.Serialize(&p->Player, serializer);
-        QBoolean.Serialize(&p->InitWithBall, serializer);
-        QBoolean.Serialize(&p->IsSliding, serializer);
-        QBoolean.Serialize(&p->IsSprinting, serializer);
         Quantum.AssetRefCharacterSpec.Serialize(&p->Spec, serializer);
-        FP.Serialize(&p->FallenTimer, serializer);
-        FP.Serialize(&p->SlideTimer, serializer);
-        FP.Serialize(&p->Stamina, serializer);
         FPVector2.Serialize(&p->InitialPosition, serializer);
-        FPVector2.Serialize(&p->SlideDirection, serializer);
     }
   }
   [StructLayout(LayoutKind.Explicit)]
@@ -1973,7 +1972,7 @@ namespace Quantum {
     public FP VerticalSpeed;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 223;
+        var hash = 227;
         hash = hash * 31 + Grounded.GetHashCode();
         hash = hash * 31 + VerticalSpeed.GetHashCode();
         return hash;
@@ -2009,7 +2008,7 @@ namespace Quantum {
     }
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 227;
+        var hash = 229;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + CurrentState.GetHashCode();
         hash = hash * 31 + CurrentTaskIndex.GetHashCode();
@@ -2039,7 +2038,7 @@ namespace Quantum {
     public HFSMData Data;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 229;
+        var hash = 233;
         hash = hash * 31 + Config.GetHashCode();
         hash = hash * 31 + Data.GetHashCode();
         return hash;
@@ -2065,7 +2064,7 @@ namespace Quantum {
     public FPVector2 Velocity;
     public override Int32 GetHashCode() {
       unchecked { 
-        var hash = 233;
+        var hash = 239;
         hash = hash * 31 + Acceleration.GetHashCode();
         hash = hash * 31 + MaxSpeed.GetHashCode();
         hash = hash * 31 + Settings.GetHashCode();
@@ -2082,11 +2081,7 @@ namespace Quantum {
     }
   }
   public unsafe partial class Frame {
-    private ISignalOnCharacterFall[] _ISignalOnCharacterFallSystems;
-    private ISignalOnSwitchCharacter[] _ISignalOnSwitchCharacterSystems;
-    private ISignalOnSwitchToCharacter[] _ISignalOnSwitchToCharacterSystems;
     private ISignalOnCharacterMove[] _ISignalOnCharacterMoveSystems;
-    private ISignalOnGoalDelayEnd[] _ISignalOnGoalDelayEndSystems;
     private ISignalOnGoal[] _ISignalOnGoalSystems;
     private ISignalOnMatchEnd[] _ISignalOnMatchEndSystems;
     partial void AllocGen() {
@@ -2101,6 +2096,7 @@ namespace Quantum {
     static partial void InitStaticGen() {
       ComponentTypeId.Setup(() => {
         ComponentTypeId.Add<Quantum.AIBlackboardComponent>(Quantum.AIBlackboardComponent.Serialize, null, Quantum.AIBlackboardComponent.OnRemoved, ComponentFlags.None);
+        ComponentTypeId.Add<Quantum.ActivePlayer>(Quantum.ActivePlayer.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.BTAgent>(Quantum.BTAgent.Serialize, null, Quantum.BTAgent.OnRemoved, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.CharacterFields>(Quantum.CharacterFields.Serialize, null, null, ComponentFlags.None);
         ComponentTypeId.Add<Quantum.CustomGravity>(Quantum.CustomGravity.Serialize, null, null, ComponentFlags.None);
@@ -2111,17 +2107,15 @@ namespace Quantum {
     }
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
-      _ISignalOnCharacterFallSystems = BuildSignalsArray<ISignalOnCharacterFall>();
-      _ISignalOnSwitchCharacterSystems = BuildSignalsArray<ISignalOnSwitchCharacter>();
-      _ISignalOnSwitchToCharacterSystems = BuildSignalsArray<ISignalOnSwitchToCharacter>();
       _ISignalOnCharacterMoveSystems = BuildSignalsArray<ISignalOnCharacterMove>();
-      _ISignalOnGoalDelayEndSystems = BuildSignalsArray<ISignalOnGoalDelayEnd>();
       _ISignalOnGoalSystems = BuildSignalsArray<ISignalOnGoal>();
       _ISignalOnMatchEndSystems = BuildSignalsArray<ISignalOnMatchEnd>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AIBlackboardComponent>();
       BuildSignalsArrayOnComponentRemoved<Quantum.AIBlackboardComponent>();
+      BuildSignalsArrayOnComponentAdded<Quantum.ActivePlayer>();
+      BuildSignalsArrayOnComponentRemoved<Quantum.ActivePlayer>();
       BuildSignalsArrayOnComponentAdded<Quantum.BTAgent>();
       BuildSignalsArrayOnComponentRemoved<Quantum.BTAgent>();
       BuildSignalsArrayOnComponentAdded<CharacterController2D>();
@@ -2175,48 +2169,12 @@ namespace Quantum {
       return _globals->input.GetPointer(player);
     }
     public unsafe partial struct FrameSignals {
-      public void OnCharacterFall(EntityRef character) {
-        var array = _f._ISignalOnCharacterFallSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnCharacterFall(_f, character);
-          }
-        }
-      }
-      public void OnSwitchCharacter(PlayerRef player) {
-        var array = _f._ISignalOnSwitchCharacterSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnSwitchCharacter(_f, player);
-          }
-        }
-      }
-      public void OnSwitchToCharacter(PlayerRef player, EntityRef character) {
-        var array = _f._ISignalOnSwitchToCharacterSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnSwitchToCharacter(_f, player, character);
-          }
-        }
-      }
       public void OnCharacterMove(EntityRef character, FPVector2 direction) {
         var array = _f._ISignalOnCharacterMoveSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
             s.OnCharacterMove(_f, character, direction);
-          }
-        }
-      }
-      public void OnGoalDelayEnd() {
-        var array = _f._ISignalOnGoalDelayEndSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnGoalDelayEnd(_f);
           }
         }
       }
@@ -2240,7 +2198,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 9;
+      public const Int32 EVENT_TYPE_COUNT = 5;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -2248,60 +2206,31 @@ namespace Quantum {
       }
       public static System.Type GetEventType(Int32 eventID) {
         switch (eventID) {
-          case EventCharacterFall.ID: return typeof(EventCharacterFall);
-          case EventCharacterSlide.ID: return typeof(EventCharacterSlide);
-          case EventCharacterKick.ID: return typeof(EventCharacterKick);
-          case EventCharacterPass.ID: return typeof(EventCharacterPass);
-          case EventCharacterCaptureBall.ID: return typeof(EventCharacterCaptureBall);
-          case EventCharacterSprint.ID: return typeof(EventCharacterSprint);
-          case EventCharacterSwitch.ID: return typeof(EventCharacterSwitch);
+          case EventCharacterWasCaught.ID: return typeof(EventCharacterWasCaught);
+          case EventCharacterIsSafe.ID: return typeof(EventCharacterIsSafe);
+          case EventTrafficLightStateChanged.ID: return typeof(EventTrafficLightStateChanged);
           case EventOnGoal.ID: return typeof(EventOnGoal);
           case EventOnGameEnd.ID: return typeof(EventOnGameEnd);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
-      public EventCharacterFall CharacterFall(EntityRef character) {
+      public EventCharacterWasCaught CharacterWasCaught(EntityRef character) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventCharacterFall>(EventCharacterFall.ID);
+        var ev = _f.Context.AcquireEvent<EventCharacterWasCaught>(EventCharacterWasCaught.ID);
         ev.character = character;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventCharacterSlide CharacterSlide(EntityRef character) {
+      public EventCharacterIsSafe CharacterIsSafe(EntityRef character) {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventCharacterSlide>(EventCharacterSlide.ID);
+        var ev = _f.Context.AcquireEvent<EventCharacterIsSafe>(EventCharacterIsSafe.ID);
         ev.character = character;
         _f.AddEvent(ev);
         return ev;
       }
-      public EventCharacterKick CharacterKick(EntityRef character) {
-        var ev = _f.Context.AcquireEvent<EventCharacterKick>(EventCharacterKick.ID);
-        ev.character = character;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventCharacterPass CharacterPass(EntityRef character) {
-        var ev = _f.Context.AcquireEvent<EventCharacterPass>(EventCharacterPass.ID);
-        ev.character = character;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventCharacterCaptureBall CharacterCaptureBall(EntityRef character) {
-        var ev = _f.Context.AcquireEvent<EventCharacterCaptureBall>(EventCharacterCaptureBall.ID);
-        ev.character = character;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventCharacterSprint CharacterSprint(EntityRef character) {
-        var ev = _f.Context.AcquireEvent<EventCharacterSprint>(EventCharacterSprint.ID);
-        ev.character = character;
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventCharacterSwitch CharacterSwitch(Int32 player, EntityRef character) {
-        var ev = _f.Context.AcquireEvent<EventCharacterSwitch>(EventCharacterSwitch.ID);
-        ev.player = player;
-        ev.character = character;
+      public EventTrafficLightStateChanged TrafficLightStateChanged() {
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventTrafficLightStateChanged>(EventTrafficLightStateChanged.ID);
         _f.AddEvent(ev);
         return ev;
       }
@@ -2375,20 +2304,8 @@ namespace Quantum {
       }
     }
   }
-  public unsafe interface ISignalOnCharacterFall : ISignal {
-    void OnCharacterFall(Frame f, EntityRef character);
-  }
-  public unsafe interface ISignalOnSwitchCharacter : ISignal {
-    void OnSwitchCharacter(Frame f, PlayerRef player);
-  }
-  public unsafe interface ISignalOnSwitchToCharacter : ISignal {
-    void OnSwitchToCharacter(Frame f, PlayerRef player, EntityRef character);
-  }
   public unsafe interface ISignalOnCharacterMove : ISignal {
     void OnCharacterMove(Frame f, EntityRef character, FPVector2 direction);
-  }
-  public unsafe interface ISignalOnGoalDelayEnd : ISignal {
-    void OnGoalDelayEnd(Frame f);
   }
   public unsafe interface ISignalOnGoal : ISignal {
     void OnGoal(Frame f);
@@ -2396,13 +2313,13 @@ namespace Quantum {
   public unsafe interface ISignalOnMatchEnd : ISignal {
     void OnMatchEnd(Frame f);
   }
-  public unsafe partial class EventCharacterFall : EventBase {
+  public unsafe partial class EventCharacterWasCaught : EventBase {
     public new const Int32 ID = 0;
     public EntityRef character;
-    protected EventCharacterFall(Int32 id, EventFlags flags) : 
+    protected EventCharacterWasCaught(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventCharacterFall() : 
+    public EventCharacterWasCaught() : 
         base(0, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -2421,13 +2338,13 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventCharacterSlide : EventBase {
+  public unsafe partial class EventCharacterIsSafe : EventBase {
     public new const Int32 ID = 1;
     public EntityRef character;
-    protected EventCharacterSlide(Int32 id, EventFlags flags) : 
+    protected EventCharacterIsSafe(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventCharacterSlide() : 
+    public EventCharacterIsSafe() : 
         base(1, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -2446,14 +2363,13 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventCharacterKick : EventBase {
+  public unsafe partial class EventTrafficLightStateChanged : EventBase {
     public new const Int32 ID = 2;
-    public EntityRef character;
-    protected EventCharacterKick(Int32 id, EventFlags flags) : 
+    protected EventTrafficLightStateChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventCharacterKick() : 
-        base(2, EventFlags.Server|EventFlags.Client) {
+    public EventTrafficLightStateChanged() : 
+        base(2, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
       get {
@@ -2466,19 +2382,17 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 43;
-        hash = hash * 31 + character.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventCharacterPass : EventBase {
+  public unsafe partial class EventOnGoal : EventBase {
     public new const Int32 ID = 3;
-    public EntityRef character;
-    protected EventCharacterPass(Int32 id, EventFlags flags) : 
+    protected EventOnGoal(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventCharacterPass() : 
-        base(3, EventFlags.Server|EventFlags.Client) {
+    public EventOnGoal() : 
+        base(3, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
       get {
@@ -2491,19 +2405,17 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 47;
-        hash = hash * 31 + character.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventCharacterCaptureBall : EventBase {
+  public unsafe partial class EventOnGameEnd : EventBase {
     public new const Int32 ID = 4;
-    public EntityRef character;
-    protected EventCharacterCaptureBall(Int32 id, EventFlags flags) : 
+    protected EventOnGameEnd(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventCharacterCaptureBall() : 
-        base(4, EventFlags.Server|EventFlags.Client) {
+    public EventOnGameEnd() : 
+        base(4, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
       get {
@@ -2516,105 +2428,6 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 53;
-        hash = hash * 31 + character.GetHashCode();
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventCharacterSprint : EventBase {
-    public new const Int32 ID = 5;
-    public EntityRef character;
-    protected EventCharacterSprint(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventCharacterSprint() : 
-        base(5, EventFlags.Server|EventFlags.Client) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 59;
-        hash = hash * 31 + character.GetHashCode();
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventCharacterSwitch : EventBase {
-    public new const Int32 ID = 6;
-    public Int32 player;
-    public EntityRef character;
-    protected EventCharacterSwitch(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventCharacterSwitch() : 
-        base(6, EventFlags.Server|EventFlags.Client) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 61;
-        hash = hash * 31 + player.GetHashCode();
-        hash = hash * 31 + character.GetHashCode();
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventOnGoal : EventBase {
-    public new const Int32 ID = 7;
-    protected EventOnGoal(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventOnGoal() : 
-        base(7, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 67;
-        return hash;
-      }
-    }
-  }
-  public unsafe partial class EventOnGameEnd : EventBase {
-    public new const Int32 ID = 8;
-    protected EventOnGameEnd(Int32 id, EventFlags flags) : 
-        base(id, flags) {
-    }
-    public EventOnGameEnd() : 
-        base(8, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
-    }
-    public new QuantumGame Game {
-      get {
-        return (QuantumGame)base.Game;
-      }
-      set {
-        base.Game = value;
-      }
-    }
-    public override Int32 GetHashCode() {
-      unchecked {
-        var hash = 71;
         return hash;
       }
     }
@@ -2724,6 +2537,9 @@ namespace Quantum {
     public virtual void Visit(Prototypes.AIBlackboardComponent_Prototype prototype) {
       VisitFallback(prototype);
     }
+    public virtual void Visit(Prototypes.ActivePlayer_Prototype prototype) {
+      VisitFallback(prototype);
+    }
     public virtual void Visit(Prototypes.BTAgent_Prototype prototype) {
       VisitFallback(prototype);
     }
@@ -2772,6 +2588,7 @@ namespace Quantum {
   public unsafe partial class TypeRegistry {
     partial void AddGenerated() {
       Register(typeof(Quantum.AIBlackboardComponent), Quantum.AIBlackboardComponent.SIZE);
+      Register(typeof(Quantum.ActivePlayer), Quantum.ActivePlayer.SIZE);
       Register(typeof(AssetGuid), AssetGuid.SIZE);
       Register(typeof(Quantum.AssetRefAIAction), Quantum.AssetRefAIAction.SIZE);
       Register(typeof(Quantum.AssetRefAIBlackboard), Quantum.AssetRefAIBlackboard.SIZE);
@@ -2875,6 +2692,7 @@ namespace Quantum {
       Register(typeof(Shape3D), Shape3D.SIZE);
       Register(typeof(SpringJoint), SpringJoint.SIZE);
       Register(typeof(SpringJoint3D), SpringJoint3D.SIZE);
+      Register(typeof(Quantum.TrafficLightState), 4);
       Register(typeof(Transform2D), Transform2D.SIZE);
       Register(typeof(Transform2DVertical), Transform2DVertical.SIZE);
       Register(typeof(Transform3D), Transform3D.SIZE);
@@ -2905,6 +2723,7 @@ namespace Quantum {
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GOAPWorldState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.GameState>();
       FramePrinter.EnsurePrimitiveNotStripped<Quantum.InputButtons>();
+      FramePrinter.EnsurePrimitiveNotStripped<Quantum.TrafficLightState>();
     }
   }
 }
@@ -2945,6 +2764,17 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Prototype(typeof(TrafficLightState))]
+  public unsafe partial struct TrafficLightState_Prototype {
+    public Int32 Value;
+    public static implicit operator TrafficLightState(TrafficLightState_Prototype value) {
+        return (TrafficLightState)value.Value;
+    }
+    public static implicit operator TrafficLightState_Prototype(TrafficLightState value) {
+        return new TrafficLightState_Prototype() { Value = (Int32)value };
+    }
+  }
+  [System.SerializableAttribute()]
   [Prototype(typeof(InputButtons))]
   public unsafe partial struct InputButtons_Prototype {
     public Int32 Value;
@@ -2980,6 +2810,24 @@ namespace Quantum.Prototypes {
         }
         result.Entries = list;
       }
+      MaterializeUser(frame, ref result, in context);
+    }
+    public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
+      ((ComponentPrototypeVisitor)visitor).Visit(this);
+    }
+  }
+  [System.SerializableAttribute()]
+  [Prototype(typeof(ActivePlayer))]
+  public sealed unsafe partial class ActivePlayer_Prototype : ComponentPrototype<ActivePlayer> {
+    [HideInInspector()]
+    public Int32 _empty_prototype_dummy_field_;
+    partial void MaterializeUser(Frame frame, ref ActivePlayer result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+      ActivePlayer component = default;
+      Materialize((Frame)f, ref component, in context);
+      return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref ActivePlayer result, in PrototypeMaterializationContext context) {
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -3155,14 +3003,7 @@ namespace Quantum.Prototypes {
   public sealed unsafe partial class CharacterFields_Prototype : ComponentPrototype<CharacterFields> {
     public AssetRefCharacterSpec Spec;
     public PlayerRef Player;
-    public FP FallenTimer;
-    public FP SlideTimer;
-    public FP Stamina;
     public FPVector2 InitialPosition;
-    public FPVector2 SlideDirection;
-    public QBoolean IsSliding;
-    public QBoolean IsSprinting;
-    public QBoolean InitWithBall;
     partial void MaterializeUser(Frame frame, ref CharacterFields result, in PrototypeMaterializationContext context);
     public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
       CharacterFields component = default;
@@ -3170,16 +3011,9 @@ namespace Quantum.Prototypes {
       return f.Set(entity, component) == SetResult.ComponentAdded;
     }
     public void Materialize(Frame frame, ref CharacterFields result, in PrototypeMaterializationContext context) {
-      result.FallenTimer = this.FallenTimer;
-      result.InitWithBall = this.InitWithBall;
       result.InitialPosition = this.InitialPosition;
-      result.IsSliding = this.IsSliding;
-      result.IsSprinting = this.IsSprinting;
       result.Player = this.Player;
-      result.SlideDirection = this.SlideDirection;
-      result.SlideTimer = this.SlideTimer;
       result.Spec = this.Spec;
-      result.Stamina = this.Stamina;
       MaterializeUser(frame, ref result, in context);
     }
     public override void Dispatch(ComponentPrototypeVisitorBase visitor) {
@@ -3326,6 +3160,8 @@ namespace Quantum.Prototypes {
     [ArrayLength(0, 1)]
     public List<Prototypes.AIBlackboardComponent_Prototype> AIBlackboardComponent;
     [ArrayLength(0, 1)]
+    public List<Prototypes.ActivePlayer_Prototype> ActivePlayer;
+    [ArrayLength(0, 1)]
     public List<Prototypes.BTAgent_Prototype> BTAgent;
     [ArrayLength(0, 1)]
     public List<Prototypes.CharacterFields_Prototype> CharacterFields;
@@ -3339,6 +3175,7 @@ namespace Quantum.Prototypes {
     public List<Prototypes.KCC_Prototype> KCC;
     partial void CollectGen(List<ComponentPrototype> target) {
       Collect(AIBlackboardComponent, target);
+      Collect(ActivePlayer, target);
       Collect(BTAgent, target);
       Collect(CharacterFields, target);
       Collect(CustomGravity, target);
@@ -3349,6 +3186,9 @@ namespace Quantum.Prototypes {
     public unsafe partial class StoreVisitor {
       public override void Visit(Prototypes.AIBlackboardComponent_Prototype prototype) {
         Storage.Store(prototype, ref Storage.AIBlackboardComponent);
+      }
+      public override void Visit(Prototypes.ActivePlayer_Prototype prototype) {
+        Storage.Store(prototype, ref Storage.ActivePlayer);
       }
       public override void Visit(Prototypes.BTAgent_Prototype prototype) {
         Storage.Store(prototype, ref Storage.BTAgent);

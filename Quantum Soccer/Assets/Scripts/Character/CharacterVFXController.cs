@@ -20,11 +20,11 @@ public class CharacterVFXController : QuantumCallbacks
     // Start is called before the first frame update
     private void Start()
     {
-        QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
+        /*QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
         QuantumEvent.Subscribe<EventCharacterPass>(this, OnCharacterPass);
         QuantumEvent.Subscribe<EventCharacterCaptureBall>(this, OnCharacterCaptureBall);
         QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
-        QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);
+        QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);*/
     }
 
     public override void OnSimulateFinished(QuantumGame game, Frame f)
@@ -41,7 +41,7 @@ public class CharacterVFXController : QuantumCallbacks
         }
 
         var fields = f.Get<CharacterFields>(EntityView.EntityRef);
-        if (fields.IsSprinting)
+       /* if (fields.IsSprinting)
         {
             if (SprintParticles.isPlaying == false) SprintParticles.Play();
             RunParticles.Stop();
@@ -50,9 +50,9 @@ public class CharacterVFXController : QuantumCallbacks
         {
             SprintParticles.Stop();
             if (RunParticles.isPlaying == false) RunParticles.Play();
-        }
+        }*/
     }
-
+/*
     private void OnCharacterPass(EventCharacterPass e)
     {
         if (e.character == EntityView.EntityRef) PassParticles.Play();
@@ -76,5 +76,5 @@ public class CharacterVFXController : QuantumCallbacks
     private void OnCharacterSlide(EventCharacterSlide e)
     {
         if (e.character == EntityView.EntityRef) SlideParticles.Play();
-    }
+    }*/
 }
