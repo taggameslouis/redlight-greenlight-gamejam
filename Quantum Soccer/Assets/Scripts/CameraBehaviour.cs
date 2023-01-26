@@ -5,7 +5,7 @@ using Quantum;
 
 public class CameraBehaviour : MonoBehaviour
 {
-    public GameObject Ball;
+    public GameObject FocusTarget;
     public float Velocity = 10;
     public float MaxX;
     public float MaxZ;
@@ -17,14 +17,11 @@ public class CameraBehaviour : MonoBehaviour
     private void Start()
     {
         _offset = transform.position;
+        //QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
+        
     }
 
     private void LateUpdate()
-    {
-        MoveCamera(Ball.transform.position);
-    }
-
-    private void MoveCamera(Vector3 ballPosition)
     {
         if (QuantumRunner.Default == null && QuantumRunner.Default.Game == null)
             return;
@@ -35,14 +32,14 @@ public class CameraBehaviour : MonoBehaviour
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
 
-        var targetPosition = Vector3.Lerp(transform.position, ballPosition + _offset, Time.deltaTime * Velocity);
-        if (targetPosition.x > MaxX) targetPosition.x = MaxX;
+        var targetPosition = Vector3.Lerp(transform.position, FocusTarget.transform.position + _offset, Time.deltaTime * Velocity);
+        /*if (targetPosition.x > MaxX) targetPosition.x = MaxX;
         if (targetPosition.x < -MaxX) targetPosition.x = -MaxX;
 
         if (targetPosition.z > MaxZ)
             targetPosition.z = MaxZ;
         if (targetPosition.z < MinZ)
-            targetPosition.z = MinZ;
+            targetPosition.z = MinZ;*/
 
         transform.position = targetPosition;
     }

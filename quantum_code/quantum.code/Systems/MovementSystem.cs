@@ -28,7 +28,7 @@ namespace Quantum
 
 			var direction = transform->Forward * inputDirection.Magnitude;
 
-			MoveCharacter(f, character, CharacterDirectionConstraints(f, character, direction, inputDirection));
+			MoveCharacter(f, character, direction);
 		}
 
 		private void MoveCharacter(Frame f, EntityRef character, FPVector2 direction)

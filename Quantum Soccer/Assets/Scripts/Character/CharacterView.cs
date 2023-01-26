@@ -13,11 +13,27 @@ public unsafe class CharacterView : QuantumCallbacks
     public RectTransform CharacterCanvas;
     public GameObject Arrow;
 
-    public void Start()
+    public void Awake()
     {
         //QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
         //QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);
         //QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
+        
+        EntityView.OnEntityInstantiated.AddListener(OnEntityInstantiated);
+    }
+
+    private void OnEntityInstantiated(QuantumGame game)
+    {
+        var f = QuantumRunner.Default.Game.Frames.Verified;
+        if (!f.TryGet<CharacterFields>(EntityView.EntityRef, out var characterFields))
+            return;
+
+        if (QuantumRunner.Default.Game.PlayerIsLocal(characterFields.Player))
+        {
+            var cameraBehaviour = GameObject.FindObjectOfType<CameraBehaviour>();
+            cameraBehaviour.FocusTarget = gameObject;
+            Debug.Log("[CharacterView] Assigning camera target");
+        }
     }
 
     public void OnDisable()
