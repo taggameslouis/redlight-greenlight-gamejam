@@ -10,12 +10,15 @@ public class TransitionController : MonoBehaviour
 
     private void Start()
     {
-        QuantumEvent.Subscribe<EventOnGameEnd>(this, OnGameEnd);
+        QuantumEvent.Subscribe<EventOnGameStateChanged>(this, OnGameEnd);
     }
 
-    private void OnGameEnd(EventOnGameEnd e)
+    private void OnGameEnd(EventOnGameStateChanged e)
     {
-        Transition.SetActive(true);
+        if (e.NewGameState == GameState.Ended)
+        {
+            Transition.SetActive(true);
+        }
     }
 
     private void OnDisable()

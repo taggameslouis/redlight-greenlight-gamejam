@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using Quantum;
 using TMPro;
 
-public unsafe class FinalScoreController : MonoBehaviour
+public class FinalScoreController : MonoBehaviour
 {
     public GameObject FinalScore;
     public TextMeshProUGUI ScoreTextTeamA;
@@ -14,13 +11,12 @@ public unsafe class FinalScoreController : MonoBehaviour
 
     private void Start()
     {
-        QuantumEvent.Subscribe<EventOnGameEnd>(this, OnGameEnd);
+        QuantumEvent.Subscribe<EventOnGameStateChanged>(this, OnGameEnd);
     }
 
-    private void OnGameEnd(EventOnGameEnd e)
+    private void OnGameEnd(EventOnGameStateChanged e)
     {
-        var f = e.Game.Frames.Verified;
-        if (f.Global->CurrentGameState == GameState.Ended)
+        if (e.NewGameState == GameState.Ended)
         {
             var scoreA = 99; //f.Global->Players[0].PlayerScore;
             var scoreB = 99; //f.Global->Players[1].PlayerScore;

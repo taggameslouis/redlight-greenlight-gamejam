@@ -33,8 +33,8 @@ namespace Quantum {
     TargetDelivered = 8,
   }
   public enum GameState : int {
-    Paused,
-    GameStart,
+    Pending,
+    Starting,
     Running,
     Ended,
   }
@@ -1466,7 +1466,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 664;
+    public const Int32 SIZE = 672;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public FP AmberLightDuration;
@@ -1478,7 +1478,7 @@ namespace Quantum {
     public TrafficLightState CurrentLightState;
     [FieldOffset(40)]
     public FP DeltaTime;
-    [FieldOffset(200)]
+    [FieldOffset(208)]
     public FrameMetaData FrameMetaData;
     [FieldOffset(48)]
     public FP GreenLightDuration;
@@ -1488,19 +1488,21 @@ namespace Quantum {
     public AssetRefMap Map;
     [FieldOffset(64)]
     public FP MatchTimer;
-    [FieldOffset(80)]
+    [FieldOffset(88)]
     public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(368)]
+    [FieldOffset(376)]
     public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(16)]
     public BitSet6 PlayerLastConnectionState;
     [FieldOffset(72)]
     public FP RedLightDuration;
-    [FieldOffset(184)]
+    [FieldOffset(192)]
     public RNGSession RngSession;
-    [FieldOffset(240)]
+    [FieldOffset(248)]
     public BitSet1024 Systems;
-    [FieldOffset(88)]
+    [FieldOffset(80)]
+    public FP WaitingForConnectionsTimer;
+    [FieldOffset(96)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
     private fixed Byte _input_[96];
     public FixedArray<Input> input {
@@ -1527,6 +1529,7 @@ namespace Quantum {
         hash = hash * 31 + RedLightDuration.GetHashCode();
         hash = hash * 31 + RngSession.GetHashCode();
         hash = hash * 31 + Systems.GetHashCode();
+        hash = hash * 31 + WaitingForConnectionsTimer.GetHashCode();
         hash = hash * 31 + HashCodeUtils.GetArrayHashCode(input);
         return hash;
       }
@@ -1544,6 +1547,7 @@ namespace Quantum {
         FP.Serialize(&p->InitialCountdown, serializer);
         FP.Serialize(&p->MatchTimer, serializer);
         FP.Serialize(&p->RedLightDuration, serializer);
+        FP.Serialize(&p->WaitingForConnectionsTimer, serializer);
         NavMeshRegionMask.Serialize(&p->NavMeshRegions, serializer);
         FixedArray.Serialize(p->input, serializer, StaticDelegates.SerializeInput);
         RNGSession.Serialize(&p->RngSession, serializer);
@@ -2198,7 +2202,7 @@ namespace Quantum {
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 5;
+      public const Int32 EVENT_TYPE_COUNT = 6;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -2210,7 +2214,8 @@ namespace Quantum {
           case EventCharacterIsSafe.ID: return typeof(EventCharacterIsSafe);
           case EventTrafficLightStateChanged.ID: return typeof(EventTrafficLightStateChanged);
           case EventOnGoal.ID: return typeof(EventOnGoal);
-          case EventOnGameEnd.ID: return typeof(EventOnGameEnd);
+          case EventOnPlayersReady.ID: return typeof(EventOnPlayersReady);
+          case EventOnGameStateChanged.ID: return typeof(EventOnGameStateChanged);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
@@ -2240,9 +2245,16 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventOnGameEnd OnGameEnd() {
+      public EventOnPlayersReady OnPlayersReady() {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnGameEnd>(EventOnGameEnd.ID);
+        var ev = _f.Context.AcquireEvent<EventOnPlayersReady>(EventOnPlayersReady.ID);
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnGameStateChanged OnGameStateChanged(GameState NewGameState) {
+        if (_f.IsPredicted) return null;
+        var ev = _f.Context.AcquireEvent<EventOnGameStateChanged>(EventOnGameStateChanged.ID);
+        ev.NewGameState = NewGameState;
         _f.AddEvent(ev);
         return ev;
       }
@@ -2409,12 +2421,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnGameEnd : EventBase {
+  public unsafe partial class EventOnPlayersReady : EventBase {
     public new const Int32 ID = 4;
-    protected EventOnGameEnd(Int32 id, EventFlags flags) : 
+    protected EventOnPlayersReady(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnGameEnd() : 
+    public EventOnPlayersReady() : 
         base(4, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -2428,6 +2440,31 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 53;
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnGameStateChanged : EventBase {
+    public new const Int32 ID = 5;
+    public GameState NewGameState;
+    protected EventOnGameStateChanged(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnGameStateChanged() : 
+        base(5, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 59;
+        hash = hash * 31 + NewGameState.GetHashCode();
         return hash;
       }
     }

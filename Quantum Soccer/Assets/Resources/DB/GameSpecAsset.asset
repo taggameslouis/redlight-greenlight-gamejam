@@ -17,10 +17,12 @@ MonoBehaviour:
       Path: Resources/DB/GameSpecAsset
       Guid:
         Value: 1467359621835538955
+    WaitingForConnectionsTimer:
+      RawValue: 327680
     InitialCountdown:
       RawValue: 196608
     MatchDuration:
-      RawValue: 7864320
+      RawValue: 2949120
     RedLightDuration:
       RawValue: 262144
     AmberLightDuration:
@@ -37,7 +39,7 @@ MonoBehaviour:
         RawValue: 131072
       Y:
         RawValue: 131072
-    MaxNumberOfColumns: 5
+    MaxNumberOfColumns: 7
     MaxCharacterPositionX:
       RawValue: 2555904
     MaxCharacterPositionY:

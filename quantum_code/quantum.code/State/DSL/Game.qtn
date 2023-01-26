@@ -6,7 +6,7 @@ component CustomGravity
 	FP VerticalSpeed;
 }
 
-enum GameState { Paused, GameStart, Running, Ended}
+enum GameState { Pending, Starting, Running, Ended}
 
 enum TrafficLightState { Red, Amber, Green }
 
@@ -14,6 +14,7 @@ global
 {
 	GameState CurrentGameState;
 	
+	FP WaitingForConnectionsTimer;
 	FP InitialCountdown;
 	FP MatchTimer;
 	
@@ -29,7 +30,12 @@ global
 synced event TrafficLightStateChanged { }
 
 synced event OnGoal { }
-synced event OnGameEnd { }
+
+synced event OnPlayersReady { }
+synced event OnGameStateChanged
+{
+    GameState NewGameState;
+}
 
 signal OnGoal();
 signal OnMatchEnd();

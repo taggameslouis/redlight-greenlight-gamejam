@@ -16,13 +16,16 @@ public class GameplaySFX : MonoBehaviour
         //QuantumEvent.Subscribe<EventCharacterSprint>(this, OnSprint);
         //QuantumEvent.Subscribe<EventCharacterSlide>(this, OnSlide);
         //QuantumEvent.Subscribe<EventCharacterSwitch>(this, OnSwitchCharacter);
-        QuantumEvent.Subscribe<EventOnGameEnd>(this, OnGameEnd);
+        QuantumEvent.Subscribe<EventOnGameStateChanged>(this, OnGameEnd);
     }
 
-    private void OnGameEnd(EventOnGameEnd e)
+    private void OnGameEnd(EventOnGameStateChanged e)
     {
-        AudioManager.Instance.Play("whistle_end");
-        AudioManager.Instance.Play("end_game_crowd");
+        if (e.NewGameState == GameState.Ended)
+        {
+            AudioManager.Instance.Play("whistle_end");
+            AudioManager.Instance.Play("end_game_crowd");
+        }
     }
 
     // private void OnSwitchCharacter(EventCharacterSwitch e)

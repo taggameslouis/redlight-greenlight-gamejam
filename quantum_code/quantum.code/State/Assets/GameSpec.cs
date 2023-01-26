@@ -4,7 +4,8 @@ namespace Quantum
 {
     public partial class GameSpec
     {
-        public FP InitialCountdown = 10;
+        public FP WaitingForConnectionsTimer = FP._5;
+        public FP InitialCountdown = FP._10;
         public FP MatchDuration = 120;
         
         public FP RedLightDuration;

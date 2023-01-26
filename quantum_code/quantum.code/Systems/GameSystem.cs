@@ -10,28 +10,50 @@ namespace Quantum
 			var gameSpec = f.FindAsset<GameSpec>(f.RuntimeConfig.GameSpec.Id);
 			f.Global->InitialCountdown = gameSpec.InitialCountdown;
 			f.Global->MatchTimer = gameSpec.MatchDuration;
-			f.Global->CurrentGameState = GameState.GameStart;
+			f.Global->WaitingForConnectionsTimer = gameSpec.WaitingForConnectionsTimer;
 			
-			Log.Debug("[GameSystem] Gamestate has been init to GAMESTART");
+			f.Global->CurrentGameState = GameState.Pending;
+			f.Events.OnGameStateChanged(f.Global->CurrentGameState);
+			
+			Log.Debug("[GameSystem] State has been init to PENDING");
 		}
 
 		public override void Update(Frame f)
 		{
 			switch (f.Global->CurrentGameState)
 			{
-				case GameState.Paused:
-					break;
+				case GameState.Pending:
+				{
+					if (f.Global->WaitingForConnectionsTimer > FP._0)
+					{
+						f.Global->WaitingForConnectionsTimer -= f.DeltaTime;
+					}
+					else
+					{
+						var playerCount = f.ComponentCount<ActivePlayer>();
+						if (playerCount >= f.PlayerCount)
+						{
+							f.Global->CurrentGameState = GameState.Starting;
+							f.Events.OnGameStateChanged(f.Global->CurrentGameState);
 
-				case GameState.GameStart:
+							Log.Debug("[GameSystem] State has been changed to STARTING");
+						}
+					}
+
+					break;
+				}
+
+				case GameState.Starting:
 				{
 					if (f.Global->InitialCountdown > 0)
 					{
 						f.Global->InitialCountdown -= f.DeltaTime;
-						Log.Debug($"[GameSystem] Initial count : {(int)f.Global->InitialCountdown}");
 					}
 					else
 					{
 						f.Global->CurrentGameState = GameState.Running;
+						f.Events.OnGameStateChanged(f.Global->CurrentGameState);
+						
 						Log.Debug("[GameSystem] State has been changed to RUNNING");
 					}
 
@@ -47,10 +69,11 @@ namespace Quantum
 					else
 					{
 						f.Global->CurrentGameState = GameState.Ended;
-						Log.Debug("[GameSystem] State has been changed to ENDED");
-			
-						f.Events.OnGameEnd();
+						f.Events.OnGameStateChanged(f.Global->CurrentGameState);
+						
 						f.Signals.OnMatchEnd();
+						
+						Log.Debug("[GameSystem] State has been changed to ENDED");
 					}
 
 					break;

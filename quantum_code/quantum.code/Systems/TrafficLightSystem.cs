@@ -15,6 +15,7 @@ namespace Quantum
 
             f.Global->CurrentLightState = TrafficLightState.Green;
             f.Global->CurrentLightDuration = f.Global->GreenLightDuration;
+            f.Events.TrafficLightStateChanged();
         }
 
         public override void Update(Frame f)
