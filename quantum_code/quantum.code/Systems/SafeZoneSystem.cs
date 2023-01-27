@@ -3,13 +3,15 @@ using Quantum.Core;
 
 namespace Quantum
 {
-	public class SafeZoneSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D
+	public unsafe class SafeZoneSystem : SystemSignalsOnly, ISignalOnTriggerEnter2D
 	{
 		public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
 		{
-			if (f.Has<ActivePlayer>(info.Entity))
+			if (f.Unsafe.TryGetPointer<CharacterFields>(info.Entity, out var characterFields))
 			{
-				f.Remove<ActivePlayer>(info.Entity);
+				characterFields->State = CharacterState.INACTIVE;
+
+				f.Events.CharacterStateChanged(info.Entity, characterFields->State);
 				
 				f.Signals.OnGoal();
 				f.Events.OnGoal();

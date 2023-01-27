@@ -134,6 +134,10 @@ namespace Quantum.Editor {
     }
   }
 
+  [CustomPropertyDrawer(typeof(Quantum.QString256))]
+  partial class QStringDrawer {}
+
+  [CustomPropertyDrawer(typeof(Quantum.Prototypes.CharacterState_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.GOAPWorldState_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.GameState_Prototype))]
   [CustomPropertyDrawer(typeof(Quantum.Prototypes.TrafficLightState_Prototype))]

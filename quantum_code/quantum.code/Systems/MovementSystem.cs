@@ -10,10 +10,12 @@ namespace Quantum
 			if (f.Global->CurrentGameState != GameState.Running)
 				return;
 				
-			foreach (var (entity, activePlayer) in f.Unsafe.GetComponentBlockIterator<ActivePlayer>())
+			foreach (var (entity, character) in f.Unsafe.GetComponentBlockIterator<CharacterFields>())
 			{
-				var character = f.Get<CharacterFields>(entity);
-				var input = f.GetPlayerInput(character.Player);
+				if (character->State != CharacterState.ACTIVE)
+					continue;
+				
+				var input = f.GetPlayerInput(character->Player);
 				f.Signals.OnCharacterMove(entity, input->Direction);
 			}
 		}

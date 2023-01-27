@@ -11,6 +11,7 @@ namespace Quantum
 			f.Global->InitialCountdown = gameSpec.InitialCountdown;
 			f.Global->MatchTimer = gameSpec.MatchDuration;
 			f.Global->WaitingForConnectionsTimer = gameSpec.WaitingForConnectionsTimer;
+			f.Global->RespawnDuration = gameSpec.RespawnDuration;
 			
 			f.Global->CurrentGameState = GameState.Pending;
 			f.Events.OnGameStateChanged(f.Global->CurrentGameState);
@@ -30,7 +31,7 @@ namespace Quantum
 					}
 					else
 					{
-						var playerCount = f.ComponentCount<ActivePlayer>();
+						var playerCount = f.ComponentCount<CharacterFields>();
 						if (playerCount >= f.PlayerCount)
 						{
 							f.Global->CurrentGameState = GameState.Starting;

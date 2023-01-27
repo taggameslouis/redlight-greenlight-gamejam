@@ -29,7 +29,8 @@ namespace Quantum
                 new PlayerSpawnSystem(),
                 new SafeZoneSystem(),
                 new CharacterAISystem(),
-                new TrafficLightSystem()
+                new TrafficLightSystem(),
+                new KillSystem()
             };
         }
     }

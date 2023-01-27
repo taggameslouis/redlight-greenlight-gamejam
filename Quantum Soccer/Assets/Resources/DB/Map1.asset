@@ -294,4 +294,117 @@ MonoBehaviour:
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
-  Prototypes: []
+  Prototypes:
+  - AIBlackboardComponent: []
+    BTAgent: []
+    CharacterFields:
+    - Spec:
+        Id:
+          Value: 4589420026254643356
+      Player:
+        _index: 1
+      Nickname: 
+      InitialPosition:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      State:
+        Value: 0
+      RespawnTimer:
+        RawValue: 0
+    CustomGravity: []
+    GOAPAgent: []
+    HFSMAgent: []
+    KCC:
+    - Settings:
+        Id:
+          Value: 157212461012189321
+      MaxSpeed:
+        RawValue: 983040
+      Acceleration:
+        RawValue: 655360
+      Velocity:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+    CharacterController2D: []
+    CharacterController3D: []
+    NavMeshAvoidanceAgent: []
+    NavMeshAvoidanceObstacle: []
+    NavMeshPathfinder: []
+    NavMeshSteeringAgent: []
+    PhysicsBody2D:
+    - Version: 2
+      Config:
+        Value: 117
+      Mass:
+        RawValue: 65536
+      Drag:
+        RawValue: 32768
+      AngularDrag:
+        RawValue: 32768
+      CenterOfMass:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      GravityScale:
+        _hasValue: 0
+        _value:
+          RawValue: 65536
+    PhysicsBody3D: []
+    PhysicsCollider2D:
+    - ShapeConfig:
+        ShapeType: 1
+        PolygonCollider:
+          Id:
+            Value: 0
+        CircleRadius:
+          RawValue: 45875
+        EdgeExtent:
+          RawValue: 0
+        BoxExtents:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        PositionOffset:
+          X:
+            RawValue: 0
+          Y:
+            RawValue: 0
+        RotationOffset:
+          RawValue: 0
+        UserTag: 0
+        IsPersistent: 1
+        CompoundShapes: []
+        IsSetFromSourceCollider: 0
+      Layer: 10
+      IsTrigger: 0
+      PhysicsMaterial:
+        Id:
+          Value: 1
+    PhysicsCollider3D: []
+    PhysicsCallbacks2D:
+    - CallbackFlags:
+        Value: 1154
+    PhysicsCallbacks3D: []
+    Transform2D:
+    - Position:
+        X:
+          RawValue: 0
+        Y:
+          RawValue: 0
+      Rotation:
+        RawValue: 0
+    Transform2DVertical:
+    - Position:
+        RawValue: 0
+      Height:
+        RawValue: 131072
+    Transform3D: []
+    View: []
+    PhysicsJoints2D: []
+    PhysicsJoints3D: []

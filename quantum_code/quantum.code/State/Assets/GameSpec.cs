@@ -7,6 +7,7 @@ namespace Quantum
         public FP WaitingForConnectionsTimer = FP._5;
         public FP InitialCountdown = FP._10;
         public FP MatchDuration = 120;
+        public FP RespawnDuration = FP._2;
         
         public FP RedLightDuration;
         public FP AmberLightDuration;

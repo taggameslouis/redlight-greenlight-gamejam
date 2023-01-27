@@ -1,23 +1,21 @@
 ﻿asset CharacterSpec;
 
+enum CharacterState { INACTIVE, ACTIVE, DEAD }
+
 component CharacterFields
 {
 	asset_ref<CharacterSpec> Spec;
 	player_ref Player;
+	QString<256> Nickname;
 	FPVector2 InitialPosition;
+	CharacterState State;
+	FP RespawnTimer;
 }
 
-component ActivePlayer
+synced event CharacterStateChanged
 {
-}
-
-synced event CharacterWasCaught
-{
-    EntityRef character;
-}
-synced event CharacterIsSafe
-{
-    EntityRef character;
+    EntityRef entity;
+    CharacterState NewState;
 }
 
 signal OnCharacterMove(EntityRef character, FPVector2 direction);

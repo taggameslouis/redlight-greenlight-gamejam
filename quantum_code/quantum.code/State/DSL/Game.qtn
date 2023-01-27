@@ -17,6 +17,7 @@ global
 	FP WaitingForConnectionsTimer;
 	FP InitialCountdown;
 	FP MatchTimer;
+	FP RespawnDuration;
 	
 	FP RedLightDuration;
 	FP AmberLightDuration;
@@ -37,5 +38,6 @@ synced event OnGameStateChanged
     GameState NewGameState;
 }
 
+signal TrafficLightStateChanged();
 signal OnGoal();
 signal OnMatchEnd();

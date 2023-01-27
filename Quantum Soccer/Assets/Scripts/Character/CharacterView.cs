@@ -12,12 +12,14 @@ public unsafe class CharacterView : QuantumCallbacks
     public Image StaminaIndicator;
     public RectTransform CharacterCanvas;
     public GameObject Arrow;
+    public TMPro.TextMeshProUGUI Nickname;
 
     public void Awake()
     {
         //QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
         //QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);
         //QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
+        QuantumEvent.Subscribe<EventCharacterStateChanged>(this, OnCharacterStateChanged);
         
         EntityView.OnEntityInstantiated.AddListener(OnEntityInstantiated);
     }
@@ -34,12 +36,36 @@ public unsafe class CharacterView : QuantumCallbacks
             cameraBehaviour.FocusTarget = gameObject;
             Debug.Log("[CharacterView] Assigning camera target");
         }
+
+        Nickname.text = characterFields.Nickname;
     }
 
     public void OnDisable()
     {
         QuantumEvent.UnsubscribeListener(this);
     }
+
+    private void OnCharacterStateChanged(EventCharacterStateChanged e)
+    {
+        if (e.entity == EntityView.EntityRef)
+        {
+            switch (e.NewState)
+            {
+                case CharacterState.DEAD:
+                    Animator.SetTrigger("Fall");
+                    break;
+                
+                case CharacterState.INACTIVE:
+                    break;
+                
+                case CharacterState.ACTIVE:
+                    Animator.SetTrigger("Idle");
+                    break;
+            }
+            
+        }
+    }
+    
 /*
     private void OnCharacterKick(EventCharacterKick e)
     {
@@ -67,7 +93,6 @@ public unsafe class CharacterView : QuantumCallbacks
 
         if (f.IsVerified == false) return;
         if (EntityView.EntityRef == EntityRef.None) return;
-
 
         if (Animator != null)
         {
