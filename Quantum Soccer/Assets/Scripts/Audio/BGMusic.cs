@@ -1,10 +1,32 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using Quantum;
 
-public sealed class BGMusic : MonoBehaviour
+public unsafe class BGMusic : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
-        AudioManager.Instance.Play("torcida_bg");
+        QuantumEvent.Subscribe<EventTrafficLightStateChanged>(this, OnLightStateChanged);
+    }
+
+    private void OnDisable()
+    {
+        QuantumEvent.UnsubscribeListener(this);
+    }
+
+    private void OnLightStateChanged(EventTrafficLightStateChanged callback)
+    {
+        switch (callback.Game.Frames.Verified.Global->CurrentLightState)
+        {
+            case TrafficLightState.Amber:
+            {
+                AudioManager.Instance.Stop();
+                break;
+            }
+            case TrafficLightState.Green:
+            {
+                AudioManager.Instance.Play("intense_bg");
+                break;
+            }
+        }
     }
 }

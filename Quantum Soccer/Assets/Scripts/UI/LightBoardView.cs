@@ -11,13 +11,14 @@ public unsafe class LightBoardView : QuantumCallbacks
     public Color RedColor = Color.red;
     public Color GreenColor = Color.green;
     
-    public Image RedLight;
-    public Image GreenLight;
+    public Image LightImg;
 
     private void Awake()
     {
         QuantumEvent.Subscribe<EventTrafficLightStateChanged>(this, OnTrafficLightStateChanged);
         QuantumEvent.Subscribe<EventOnGameStateChanged>(this, OnGameStateChanged);
+
+        LightImg.color = DefaultColor;
     }
 
     private void OnGameStateChanged(EventOnGameStateChanged callback)
@@ -34,16 +35,14 @@ public unsafe class LightBoardView : QuantumCallbacks
         {
             case TrafficLightState.Green:
             {
-                RedLight.color = DefaultColor;
-                GreenLight.color = GreenColor;
+                LightImg.color = GreenColor;
                 break;
             }
 
             case TrafficLightState.Amber:
             case TrafficLightState.Red:
             {
-                GreenLight.color = DefaultColor;
-                RedLight.color = RedColor;
+                LightImg.color = RedColor;
                 break;
             }
         }

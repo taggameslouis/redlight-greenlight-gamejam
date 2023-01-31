@@ -1537,7 +1537,7 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 680;
+    public const Int32 SIZE = 696;
     public const Int32 ALIGNMENT = 8;
     [FieldOffset(24)]
     public FP AmberLightDuration;
@@ -1549,33 +1549,37 @@ namespace Quantum {
     public TrafficLightState CurrentLightState;
     [FieldOffset(40)]
     public FP DeltaTime;
-    [FieldOffset(216)]
+    [FieldOffset(232)]
     public FrameMetaData FrameMetaData;
     [FieldOffset(48)]
-    public FP GreenLightDuration;
+    public FP GreenLightMaxDuration;
     [FieldOffset(56)]
+    public FP GreenLightMinDuration;
+    [FieldOffset(64)]
     public FP InitialCountdown;
     [FieldOffset(8)]
     public AssetRefMap Map;
-    [FieldOffset(64)]
+    [FieldOffset(72)]
     public FP MatchTimer;
-    [FieldOffset(96)]
+    [FieldOffset(112)]
     public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(384)]
+    [FieldOffset(400)]
     public PhysicsSceneSettings PhysicsSettings;
     [FieldOffset(16)]
     public BitSet6 PlayerLastConnectionState;
-    [FieldOffset(72)]
-    public FP RedLightDuration;
     [FieldOffset(80)]
-    public FP RespawnDuration;
-    [FieldOffset(200)]
-    public RNGSession RngSession;
-    [FieldOffset(256)]
-    public BitSet1024 Systems;
+    public FP RedLightMaxDuration;
     [FieldOffset(88)]
-    public FP WaitingForConnectionsTimer;
+    public FP RedLightMinDuration;
+    [FieldOffset(96)]
+    public FP RespawnDuration;
+    [FieldOffset(216)]
+    public RNGSession RngSession;
+    [FieldOffset(272)]
+    public BitSet1024 Systems;
     [FieldOffset(104)]
+    public FP WaitingForConnectionsTimer;
+    [FieldOffset(120)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
     private fixed Byte _input_[96];
     public FixedArray<Input> input {
@@ -1592,14 +1596,16 @@ namespace Quantum {
         hash = hash * 31 + (Int32)CurrentLightState;
         hash = hash * 31 + DeltaTime.GetHashCode();
         hash = hash * 31 + FrameMetaData.GetHashCode();
-        hash = hash * 31 + GreenLightDuration.GetHashCode();
+        hash = hash * 31 + GreenLightMaxDuration.GetHashCode();
+        hash = hash * 31 + GreenLightMinDuration.GetHashCode();
         hash = hash * 31 + InitialCountdown.GetHashCode();
         hash = hash * 31 + Map.GetHashCode();
         hash = hash * 31 + MatchTimer.GetHashCode();
         hash = hash * 31 + NavMeshRegions.GetHashCode();
         hash = hash * 31 + PhysicsSettings.GetHashCode();
         hash = hash * 31 + PlayerLastConnectionState.GetHashCode();
-        hash = hash * 31 + RedLightDuration.GetHashCode();
+        hash = hash * 31 + RedLightMaxDuration.GetHashCode();
+        hash = hash * 31 + RedLightMinDuration.GetHashCode();
         hash = hash * 31 + RespawnDuration.GetHashCode();
         hash = hash * 31 + RngSession.GetHashCode();
         hash = hash * 31 + Systems.GetHashCode();
@@ -1617,10 +1623,12 @@ namespace Quantum {
         FP.Serialize(&p->AmberLightDuration, serializer);
         FP.Serialize(&p->CurrentLightDuration, serializer);
         FP.Serialize(&p->DeltaTime, serializer);
-        FP.Serialize(&p->GreenLightDuration, serializer);
+        FP.Serialize(&p->GreenLightMaxDuration, serializer);
+        FP.Serialize(&p->GreenLightMinDuration, serializer);
         FP.Serialize(&p->InitialCountdown, serializer);
         FP.Serialize(&p->MatchTimer, serializer);
-        FP.Serialize(&p->RedLightDuration, serializer);
+        FP.Serialize(&p->RedLightMaxDuration, serializer);
+        FP.Serialize(&p->RedLightMinDuration, serializer);
         FP.Serialize(&p->RespawnDuration, serializer);
         FP.Serialize(&p->WaitingForConnectionsTimer, serializer);
         NavMeshRegionMask.Serialize(&p->NavMeshRegions, serializer);

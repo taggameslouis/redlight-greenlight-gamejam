@@ -19,6 +19,11 @@ public class GameplaySFX : MonoBehaviour
         QuantumEvent.Subscribe<EventOnGameStateChanged>(this, OnGameEnd);
     }
 
+    private void OnDisable()
+    {
+        QuantumEvent.UnsubscribeListener(this);
+    }
+
     private void OnGameEnd(EventOnGameStateChanged e)
     {
         if (e.NewGameState == GameState.Ended)
@@ -48,6 +53,7 @@ public class GameplaySFX : MonoBehaviour
         AudioManager.Instance.Play("goal");
         AudioManager.Instance.Play("whistle_start");
     }
+    
     //
     // private void OnBallCollide(EventBallCollide e)
     // {
@@ -73,9 +79,4 @@ public class GameplaySFX : MonoBehaviour
     // {
     //     AudioManager.Instance.Play("pass");
     // }
-
-    private void OnDisable()
-    {
-        QuantumEvent.UnsubscribeListener(this);
-    }
 }

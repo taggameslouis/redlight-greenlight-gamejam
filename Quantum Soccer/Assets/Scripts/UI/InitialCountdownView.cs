@@ -18,11 +18,7 @@ public unsafe class InitialCountdownView : QuantumCallbacks
         if (callback.NewGameState == GameState.Starting)
         {
             Text.gameObject.SetActive(true);
-        }
-        else if(callback.NewGameState == GameState.Pending)
-        {
-            Text.text = "Game Is Starting ...";
-            Text.gameObject.SetActive(true);
+            AudioManager.Instance.Play("countdown");
         }
         else
         {

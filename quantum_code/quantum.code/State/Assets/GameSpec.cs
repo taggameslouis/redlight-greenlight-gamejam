@@ -9,16 +9,15 @@ namespace Quantum
         public FP MatchDuration = 120;
         public FP RespawnDuration = FP._2;
         
-        public FP RedLightDuration;
+        public FP RedLightMinDuration;
+        public FP RedLightMaxDuration;
         public FP AmberLightDuration;
-        public FP GreenLightDuration;
+        public FP GreenLightMinDuration;
+        public FP GreenLightMaxDuration;
 
         public FPVector2 DefaultSpawnPosition = FPVector2.Zero;
         public FPVector2 DefaultSpawnPositionSpacing = FPVector2.One * FP._10;
         public int MaxNumberOfColumns = 10;
-
-        public FP MaxCharacterPositionX = 41;
-        public FP MaxCharacterPositionY = 31;
 
         public FPVector2 FindSpawnPositionForPlayer(int playerId)
         {

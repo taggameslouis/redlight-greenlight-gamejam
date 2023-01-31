@@ -19,13 +19,14 @@ global
 	FP MatchTimer;
 	FP RespawnDuration;
 	
-	FP RedLightDuration;
+	FP RedLightMinDuration;
+	FP RedLightMaxDuration;
 	FP AmberLightDuration;
-	FP GreenLightDuration;
+	FP GreenLightMinDuration;
+	FP GreenLightMaxDuration;
 	
 	TrafficLightState CurrentLightState;
-	FP CurrentLightDuration;
-	
+	FP CurrentLightDuration;	
 }
 
 synced event TrafficLightStateChanged { }

@@ -53,6 +53,7 @@ public unsafe class CharacterView : QuantumCallbacks
             {
                 case CharacterState.DEAD:
                     Animator.SetTrigger("Fall");
+                    AudioManager.Instance.Play("slide");
                     break;
                 
                 case CharacterState.INACTIVE:

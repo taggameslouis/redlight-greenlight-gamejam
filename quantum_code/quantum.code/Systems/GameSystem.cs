@@ -54,6 +54,7 @@ namespace Quantum
 					{
 						f.Global->CurrentGameState = GameState.Running;
 						f.Events.OnGameStateChanged(f.Global->CurrentGameState);
+						f.Events.TrafficLightStateChanged();
 						
 						Log.Debug("[GameSystem] State has been changed to RUNNING");
 					}

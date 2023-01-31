@@ -45,35 +45,5 @@ namespace Quantum
 			var movement = settings.ComputeRawMovement(f, character, direction);
 			settings.SteerAndMove(f, character, in movement);
 		}
-
-		// TODO: Can probably remove this
-		private FPVector2 CharacterDirectionConstraints(Frame f, EntityRef character, FPVector2 direction, FPVector2 input)
-		{
-			var newDirection = direction;
-			var transform = f.Unsafe.GetPointer<Transform2D>(character);
-			var gameSpec = f.FindAsset<GameSpec>(f.RuntimeConfig.GameSpec.Id);
-			if (transform->Position.X > 0 && input.X > 0 && transform->Position.X >= gameSpec.MaxCharacterPositionX)
-			{
-				transform->Position.X = gameSpec.MaxCharacterPositionX;
-				newDirection = FPVector2.Zero;
-			}
-			if (transform->Position.X < 0 && input.X < 0 && transform->Position.X < -gameSpec.MaxCharacterPositionX)
-			{
-				transform->Position.X = -gameSpec.MaxCharacterPositionX;
-				newDirection = FPVector2.Zero;
-			}
-
-			if (transform->Position.Y > 0 && input.Y > 0 && transform->Position.Y >= gameSpec.MaxCharacterPositionY)
-			{
-				transform->Position.Y = gameSpec.MaxCharacterPositionY;
-				newDirection = FPVector2.Zero;
-			}
-			if (transform->Position.Y < 0 && input.Y < 0 && transform->Position.Y < -gameSpec.MaxCharacterPositionY)
-			{
-				transform->Position.Y = -gameSpec.MaxCharacterPositionY;
-				newDirection = FPVector2.Zero;
-			}
-			return newDirection;
-		}
 	}
 }

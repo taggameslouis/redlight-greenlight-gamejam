@@ -9,13 +9,14 @@ namespace Quantum
         {
             var gameSpec = f.FindAsset<GameSpec>(f.RuntimeConfig.GameSpec.Id);
             
-            f.Global->RedLightDuration = gameSpec.RedLightDuration;
+            f.Global->RedLightMinDuration = gameSpec.RedLightMinDuration;
+            f.Global->RedLightMaxDuration = gameSpec.RedLightMaxDuration;
             f.Global->AmberLightDuration = gameSpec.AmberLightDuration;
-            f.Global->GreenLightDuration = gameSpec.GreenLightDuration;
+            f.Global->GreenLightMinDuration = gameSpec.GreenLightMinDuration;
+            f.Global->GreenLightMaxDuration = gameSpec.GreenLightMaxDuration;
 
             f.Global->CurrentLightState = TrafficLightState.Green;
-            f.Global->CurrentLightDuration = f.Global->GreenLightDuration;
-            f.Events.TrafficLightStateChanged();
+            f.Global->CurrentLightDuration = GetRandomTime(f);
         }
 
         public override void Update(Frame f)
@@ -32,22 +33,22 @@ namespace Quantum
             {
                 case TrafficLightState.Amber:
                 {
-                    f.Global->CurrentLightDuration = f.Global->RedLightDuration;
                     f.Global->CurrentLightState = TrafficLightState.Red;
+                    f.Global->CurrentLightDuration = GetRandomTime(f);
                     break;
                 }
 
                 case TrafficLightState.Red:
                 {
-                    f.Global->CurrentLightDuration = f.Global->GreenLightDuration;
                     f.Global->CurrentLightState = TrafficLightState.Green;
+                    f.Global->CurrentLightDuration = GetRandomTime(f);
                     break;
                 }
 
                 case TrafficLightState.Green:
                 {
-                    f.Global->CurrentLightDuration = f.Global->AmberLightDuration;
                     f.Global->CurrentLightState = TrafficLightState.Amber;
+                    f.Global->CurrentLightDuration = f.Global->AmberLightDuration;
                     break;
                 }
             }
@@ -56,6 +57,20 @@ namespace Quantum
             f.Signals.TrafficLightStateChanged();
             
             Log.Debug($"[TrafficLightSystem] Light changed to {f.Global->CurrentLightState}");
+        }
+
+        private FP GetRandomTime(Frame f)
+        {
+            switch (f.Global->CurrentLightState)
+            {
+                case TrafficLightState.Green:
+                    return f.RNG->Next(f.Global->GreenLightMinDuration, f.Global->GreenLightMaxDuration);
+                
+                case TrafficLightState.Red:
+                    return f.RNG->Next(f.Global->RedLightMinDuration, f.Global->RedLightMaxDuration);
+            }
+
+            return FP._0;
         }
     }
 }

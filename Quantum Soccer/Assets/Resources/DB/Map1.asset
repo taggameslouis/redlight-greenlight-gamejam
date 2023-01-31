@@ -45,11 +45,11 @@ MonoBehaviour:
         RawValue: -102943
       Position:
         X:
-          RawValue: 1966080
+          RawValue: 5898240
         Y:
           RawValue: 0
       Height:
-        RawValue: 982056
+        RawValue: 655360
       VerticalOffset:
         RawValue: -131072
       PhysicsMaterial:
@@ -61,7 +61,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 2812170
+          RawValue: 8192000
         Y:
           RawValue: 47149
       EdgeExtent:
@@ -87,11 +87,11 @@ MonoBehaviour:
         RawValue: -102943
       Position:
         X:
-          RawValue: -1966080
+          RawValue: -5898240
         Y:
           RawValue: 0
       Height:
-        RawValue: 982056
+        RawValue: 655360
       VerticalOffset:
         RawValue: -131072
       PhysicsMaterial:
@@ -103,7 +103,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 2800681
+          RawValue: 8192000
         Y:
           RawValue: 47149
       EdgeExtent:
@@ -129,11 +129,11 @@ MonoBehaviour:
         RawValue: -205887
       Position:
         X:
-          RawValue: 0
+          RawValue: 1
         Y:
-          RawValue: 2629960
+          RawValue: 7864321
       Height:
-        RawValue: 982056
+        RawValue: 655360
       VerticalOffset:
         RawValue: -131072
       PhysicsMaterial:
@@ -145,7 +145,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 1998848
+          RawValue: 6553600
         Y:
           RawValue: 24753
       EdgeExtent:
@@ -171,53 +171,11 @@ MonoBehaviour:
         RawValue: -205887
       Position:
         X:
-          RawValue: 0
+          RawValue: -1
         Y:
-          RawValue: 2490368
+          RawValue: -7864321
       Height:
-        RawValue: 327680
-      VerticalOffset:
-        RawValue: 0
-      PhysicsMaterial:
-        Id:
-          Value: 0
-      Layer: 8
-      ShapeType: 4
-      CircleRadius:
-        RawValue: 0
-      BoxExtents:
-        X:
-          RawValue: 1998848
-        Y:
-          RawValue: 327680
-      EdgeExtent:
-        RawValue: 0
-      PolygonCollider:
-        Identifier:
-          Path: 
-          Guid:
-            Value: 0
-        Vertices: []
-        Normals: []
-      StaticData:
-        Name: SafeZone
-        Tag: Untagged
-        Layer: 8
-        Asset:
-          Id:
-            Value: 0
-        IsTrigger: 1
-        ColliderIndex: 3
-        MutableMode: 0
-    - Rotation:
-        RawValue: -205887
-      Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: -2634547
-      Height:
-        RawValue: 982056
+        RawValue: 655360
       VerticalOffset:
         RawValue: -131072
       PhysicsMaterial:
@@ -229,7 +187,7 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 1998848
+          RawValue: 6553600
         Y:
           RawValue: 24753
       EdgeExtent:
@@ -249,6 +207,48 @@ MonoBehaviour:
           Id:
             Value: 0
         IsTrigger: 0
+        ColliderIndex: 3
+        MutableMode: 0
+    - Rotation:
+        RawValue: -205887
+      Position:
+        X:
+          RawValue: 1
+        Y:
+          RawValue: 7536641
+      Height:
+        RawValue: 327680
+      VerticalOffset:
+        RawValue: 0
+      PhysicsMaterial:
+        Id:
+          Value: 0
+      Layer: 8
+      ShapeType: 4
+      CircleRadius:
+        RawValue: 0
+      BoxExtents:
+        X:
+          RawValue: 6553600
+        Y:
+          RawValue: 491520
+      EdgeExtent:
+        RawValue: 0
+      PolygonCollider:
+        Identifier:
+          Path: 
+          Guid:
+            Value: 0
+        Vertices: []
+        Normals: []
+      StaticData:
+        Name: SafeZone
+        Tag: Untagged
+        Layer: 8
+        Asset:
+          Id:
+            Value: 0
+        IsTrigger: 1
         ColliderIndex: 4
         MutableMode: 0
     StaticColliders3D:
@@ -276,11 +276,11 @@ MonoBehaviour:
         RawValue: 0
       BoxExtents:
         X:
-          RawValue: 3098623
+          RawValue: 8519680
         Y:
           RawValue: 32768
         Z:
-          RawValue: 2237952
+          RawValue: 6553600
       SmoothSphereMeshCollisions: 0
       StaticData:
         Name: Ground
@@ -294,117 +294,4 @@ MonoBehaviour:
         MutableMode: 0
       MutableMode: 0
     MapEntities: []
-  Prototypes:
-  - AIBlackboardComponent: []
-    BTAgent: []
-    CharacterFields:
-    - Spec:
-        Id:
-          Value: 4589420026254643356
-      Player:
-        _index: 1
-      Nickname: 
-      InitialPosition:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      State:
-        Value: 0
-      RespawnTimer:
-        RawValue: 0
-    CustomGravity: []
-    GOAPAgent: []
-    HFSMAgent: []
-    KCC:
-    - Settings:
-        Id:
-          Value: 157212461012189321
-      MaxSpeed:
-        RawValue: 983040
-      Acceleration:
-        RawValue: 655360
-      Velocity:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-    CharacterController2D: []
-    CharacterController3D: []
-    NavMeshAvoidanceAgent: []
-    NavMeshAvoidanceObstacle: []
-    NavMeshPathfinder: []
-    NavMeshSteeringAgent: []
-    PhysicsBody2D:
-    - Version: 2
-      Config:
-        Value: 117
-      Mass:
-        RawValue: 65536
-      Drag:
-        RawValue: 32768
-      AngularDrag:
-        RawValue: 32768
-      CenterOfMass:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      GravityScale:
-        _hasValue: 0
-        _value:
-          RawValue: 65536
-    PhysicsBody3D: []
-    PhysicsCollider2D:
-    - ShapeConfig:
-        ShapeType: 1
-        PolygonCollider:
-          Id:
-            Value: 0
-        CircleRadius:
-          RawValue: 45875
-        EdgeExtent:
-          RawValue: 0
-        BoxExtents:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-        PositionOffset:
-          X:
-            RawValue: 0
-          Y:
-            RawValue: 0
-        RotationOffset:
-          RawValue: 0
-        UserTag: 0
-        IsPersistent: 1
-        CompoundShapes: []
-        IsSetFromSourceCollider: 0
-      Layer: 10
-      IsTrigger: 0
-      PhysicsMaterial:
-        Id:
-          Value: 1
-    PhysicsCollider3D: []
-    PhysicsCallbacks2D:
-    - CallbackFlags:
-        Value: 1154
-    PhysicsCallbacks3D: []
-    Transform2D:
-    - Position:
-        X:
-          RawValue: 0
-        Y:
-          RawValue: 0
-      Rotation:
-        RawValue: 0
-    Transform2DVertical:
-    - Position:
-        RawValue: 0
-      Height:
-        RawValue: 131072
-    Transform3D: []
-    View: []
-    PhysicsJoints2D: []
-    PhysicsJoints3D: []
+  Prototypes: []

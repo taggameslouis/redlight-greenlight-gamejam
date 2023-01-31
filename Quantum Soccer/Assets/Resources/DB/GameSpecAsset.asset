@@ -22,25 +22,27 @@ MonoBehaviour:
     InitialCountdown:
       RawValue: 196608
     MatchDuration:
-      RawValue: 2949120
-    RedLightDuration:
-      RawValue: 262144
-    AmberLightDuration:
+      RawValue: 3932160
+    RespawnDuration:
+      RawValue: 131072
+    RedLightMinDuration:
       RawValue: 65536
-    GreenLightDuration:
-      RawValue: 262144
+    RedLightMaxDuration:
+      RawValue: 294912
+    AmberLightDuration:
+      RawValue: 16384
+    GreenLightMinDuration:
+      RawValue: 196608
+    GreenLightMaxDuration:
+      RawValue: 458752
     DefaultSpawnPosition:
       X:
         RawValue: 0
       Y:
-        RawValue: -2097152
+        RawValue: -6553600
     DefaultSpawnPositionSpacing:
       X:
         RawValue: 131072
       Y:
         RawValue: 131072
     MaxNumberOfColumns: 7
-    MaxCharacterPositionX:
-      RawValue: 2555904
-    MaxCharacterPositionY:
-      RawValue: 1900544

@@ -9,6 +9,7 @@ public class Sound
     public AudioClip Clip;
 
     [Range(0f, 1f)] public float Volume;
+    public float StartTime = 0f;
 
     public AudioSource Source;
     public bool Loop;
