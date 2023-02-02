@@ -5,7 +5,7 @@ public unsafe class BGMusic : MonoBehaviour
 {
     private void Awake()
     {
-        QuantumEvent.Subscribe<EventTrafficLightStateChanged>(this, OnLightStateChanged);
+        QuantumEvent.Subscribe<EventOnTrafficLightStateChanged>(this, OnLightStateChanged);
     }
 
     private void OnDisable()
@@ -13,18 +13,18 @@ public unsafe class BGMusic : MonoBehaviour
         QuantumEvent.UnsubscribeListener(this);
     }
 
-    private void OnLightStateChanged(EventTrafficLightStateChanged callback)
+    private void OnLightStateChanged(EventOnTrafficLightStateChanged callback)
     {
         switch (callback.Game.Frames.Verified.Global->CurrentLightState)
         {
             case TrafficLightState.Amber:
             {
-                AudioManager.Instance.Stop();
+                AudioManager.Instance.StopBGMusic();
                 break;
             }
             case TrafficLightState.Green:
             {
-                AudioManager.Instance.Play("intense_bg");
+                AudioManager.Instance.PlayBGMusic("intense_bg");
                 break;
             }
         }

@@ -15,7 +15,7 @@ public unsafe class LightBoardView : QuantumCallbacks
 
     private void Awake()
     {
-        QuantumEvent.Subscribe<EventTrafficLightStateChanged>(this, OnTrafficLightStateChanged);
+        QuantumEvent.Subscribe<EventOnTrafficLightStateChanged>(this, OnTrafficLightStateChanged);
         QuantumEvent.Subscribe<EventOnGameStateChanged>(this, OnGameStateChanged);
 
         LightImg.color = DefaultColor;
@@ -29,7 +29,7 @@ public unsafe class LightBoardView : QuantumCallbacks
         }
     }
 
-    private void OnTrafficLightStateChanged(EventTrafficLightStateChanged callback)
+    private void OnTrafficLightStateChanged(EventOnTrafficLightStateChanged callback)
     {
         switch (QuantumRunner.Default.Game.Frames.Verified.Global->CurrentLightState)
         {

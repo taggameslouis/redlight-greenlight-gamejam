@@ -53,8 +53,8 @@ namespace Quantum
                 }
             }
 
-            f.Events.TrafficLightStateChanged();
-            f.Signals.TrafficLightStateChanged();
+            f.Events.OnTrafficLightStateChanged();
+            f.Signals.OnTrafficLightStateChanged();
             
             Log.Debug($"[TrafficLightSystem] Light changed to {f.Global->CurrentLightState}");
         }

@@ -18,23 +18,23 @@ MonoBehaviour:
       Guid:
         Value: 1467359621835538955
     WaitingForConnectionsTimer:
-      RawValue: 327680
+      RawValue: 196608
     InitialCountdown:
       RawValue: 196608
     MatchDuration:
-      RawValue: 3932160
+      RawValue: 5898240
     RespawnDuration:
       RawValue: 131072
     RedLightMinDuration:
-      RawValue: 65536
+      RawValue: 196608
     RedLightMaxDuration:
-      RawValue: 294912
+      RawValue: 393216
     AmberLightDuration:
       RawValue: 16384
     GreenLightMinDuration:
-      RawValue: 196608
+      RawValue: 327680
     GreenLightMaxDuration:
-      RawValue: 458752
+      RawValue: 589824
     DefaultSpawnPosition:
       X:
         RawValue: 0
@@ -45,4 +45,4 @@ MonoBehaviour:
         RawValue: 131072
       Y:
         RawValue: 131072
-    MaxNumberOfColumns: 7
+    MaxNumberOfColumns: 8

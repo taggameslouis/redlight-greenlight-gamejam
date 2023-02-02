@@ -20,6 +20,7 @@ public unsafe class CharacterView : QuantumCallbacks
         //QuantumEvent.Subscribe<EventCharacterSlide>(this, OnCharacterSlide);
         //QuantumEvent.Subscribe<EventCharacterKick>(this, OnCharacterKick);
         QuantumEvent.Subscribe<EventCharacterStateChanged>(this, OnCharacterStateChanged);
+        QuantumEvent.Subscribe<EventOnPlayerSafe>(this, OnPlayerSafe);
         
         EntityView.OnEntityInstantiated.AddListener(OnEntityInstantiated);
     }
@@ -43,6 +44,14 @@ public unsafe class CharacterView : QuantumCallbacks
     public void OnDisable()
     {
         QuantumEvent.UnsubscribeListener(this);
+    }
+
+    private void OnPlayerSafe(EventOnPlayerSafe e)
+    {
+        //if (e.entity == EntityView.EntityRef)
+        {
+            Animator.SetFloat("Velocity", 0f);
+        }
     }
 
     private void OnCharacterStateChanged(EventCharacterStateChanged e)
@@ -95,13 +104,19 @@ public unsafe class CharacterView : QuantumCallbacks
         if (f.IsVerified == false) return;
         if (EntityView.EntityRef == EntityRef.None) return;
 
+        var fields = f.Get<CharacterFields>(EntityView.EntityRef);
+        if (fields.State == CharacterState.INACTIVE)
+        {
+            Animator.SetFloat("Velocity", 0f);
+            return;
+        }
+        
         if (Animator != null)
         {
             var kcc = f.Get<KCC>(EntityView.EntityRef);
             Animator.SetFloat("Velocity", (float)kcc.Velocity.Magnitude);
         }
 
-        var fields = f.Get<CharacterFields>(EntityView.EntityRef);
         UpdateArrow(f, fields);
 
         if (game.PlayerIsLocal(fields.Player) == false)

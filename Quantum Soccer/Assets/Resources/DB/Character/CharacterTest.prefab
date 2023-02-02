@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -420,7 +420,7 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6728863876904271168}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4932697435238518439
+--- !u!114 &5931389427911933226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -436,7 +436,7 @@ MonoBehaviour:
     Identifier:
       Path: Resources/DB/Character/CharacterTest|EntityView
       Guid:
-        Value: 1728714615117961704
+        Value: 1488220743193645649
   Parent: {fileID: 3764752304621708950}
 --- !u!114 &7655309908952931132
 MonoBehaviour:

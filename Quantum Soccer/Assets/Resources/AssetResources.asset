@@ -46,11 +46,6 @@ MonoBehaviour:
         Id:
           Value: 612142881368737
       ResourcePath: DB/Character/KCCSlideSettingsAsset
-    - Path: Resources/DB/Character/CharacterTeamA|EntityView
-      AssetRef:
-        Id:
-          Value: 65839945867159663
-      ResourcePath: DB/Character/CharacterTeamA
     - Path: Resources/DB/Character/KCCSettingsAsset
       AssetRef:
         Id:
@@ -81,6 +76,11 @@ MonoBehaviour:
         Id:
           Value: 766766741057361368
       ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Ball/Ball|EntityView
+      AssetRef:
+        Id:
+          Value: 856578508254036510
+      ResourcePath: DB/Ball/Ball
     - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallOwnerIsTeammateDecision_19
       AssetRef:
         Id:
@@ -101,6 +101,11 @@ MonoBehaviour:
         Id:
           Value: 1275633077142794167
       ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
+    - Path: Resources/DB/Character/Character|EntityView
+      AssetRef:
+        Id:
+          Value: 1423971530641360772
+      ResourcePath: DB/Character/Character
     - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|BallOwnerIsTeammateDecision_5
       AssetRef:
         Id:
@@ -111,16 +116,21 @@ MonoBehaviour:
         Id:
           Value: 1467359621835538955
       ResourcePath: DB/GameSpecAsset
+    - Path: Resources/DB/Character/CharacterTest|EntityView
+      AssetRef:
+        Id:
+          Value: 1488220743193645649
+      ResourcePath: DB/Character/CharacterTest
+    - Path: Resources/DB/Character/CharacterTeamA|EntityView
+      AssetRef:
+        Id:
+          Value: 1645944840719656714
+      ResourcePath: DB/Character/CharacterTeamA
     - Path: Resources/DB/Map1
       AssetRef:
         Id:
           Value: 1710471675203725834
       ResourcePath: DB/Map1
-    - Path: Resources/DB/Character/CharacterTest|EntityView
-      AssetRef:
-        Id:
-          Value: 1728714615117961704
-      ResourcePath: DB/Character/CharacterTest
     - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|GoToPosition_2
       AssetRef:
         Id:
@@ -196,11 +206,6 @@ MonoBehaviour:
         Id:
           Value: 2715959183951731249
       ResourcePath: DB/Map1_mesh
-    - Path: Resources/DB/Character/Character|EntityView
-      AssetRef:
-        Id:
-          Value: 2759649410508393377
-      ResourcePath: DB/Character/Character
     - Path: Resources/DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine|DefendPositionAction_0
       AssetRef:
         Id:
@@ -236,16 +241,16 @@ MonoBehaviour:
         Id:
           Value: 3188595729756254063
       ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
+    - Path: Resources/DB/Character/CharacterTeamB|EntityView
+      AssetRef:
+        Id:
+          Value: 3217140396193044940
+      ResourcePath: DB/Character/CharacterTeamB
     - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|LookForBallInPosition_1
       AssetRef:
         Id:
           Value: 3310709531095548094
       ResourcePath: DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine
-    - Path: Resources/DB/Character/CharacterTeamB|EntityView
-      AssetRef:
-        Id:
-          Value: 3575563515510064731
-      ResourcePath: DB/Character/CharacterTeamB
     - Path: Resources/DB/CircuitExport/HFSM_Assets/DefaultCharacterStateMachine|CharacterNotControlledByPlayerDecision_12
       AssetRef:
         Id:
@@ -296,11 +301,6 @@ MonoBehaviour:
         Id:
           Value: 4348208724190085643
       ResourcePath: DB/CircuitExport/HFSM_Assets/GoalkeeperDefaultCharacterStateMachine
-    - Path: Resources/DB/Ball/Ball|EntityView
-      AssetRef:
-        Id:
-          Value: 4353798408605375262
-      ResourcePath: DB/Ball/Ball
     - Path: Resources/DB/Character/CharacterTest|EntityPrototype
       AssetRef:
         Id:

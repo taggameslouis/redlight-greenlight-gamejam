@@ -12,10 +12,8 @@ namespace Quantum
 				characterFields->State = CharacterState.INACTIVE;
 
 				f.Events.CharacterStateChanged(info.Entity, characterFields->State);
-				
-				f.Signals.OnGoal();
-				f.Events.OnGoal();
-				
+				f.Events.OnPlayerSafe(characterFields->Player);
+
 				Log.Debug("[SafeZoneSystem] Player has reached the safe zone");
 			}
 		}

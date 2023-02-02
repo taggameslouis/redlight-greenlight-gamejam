@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] sounds;
 
-    private Coroutine m_fadeOut = null;
+    private Sound m_backgroundMusic;
 
     private void Awake()
     {
@@ -30,33 +30,32 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string name)
     {
-        if (m_fadeOut != null)
-        {
-            StopCoroutine(m_fadeOut);
-            m_fadeOut = null;
-        }
-
         var s = Array.Find(sounds, sound => sound.Name == name);
         s.Source.volume = s.Volume;
         s.Source.time = s.StartTime;
         s.Source.Play();
     }
 
-    public void Stop()
+    public void PlayBGMusic(string name)
     {
-        m_fadeOut = StartCoroutine(StartFadeOut());
+        m_backgroundMusic = Array.Find(sounds, sound => sound.Name == name);
+        Play(name);
+    }
+
+    public void StopBGMusic()
+    {
+        StartCoroutine(StartFadeOut());
     }
 
     private IEnumerator StartFadeOut()
     {
-        var s = Array.Find(sounds, sound => sound.Source.isPlaying);
         while (true)
         {
-            s.Source.volume -= Time.deltaTime * FadeSpeed;
-            if (s.Source.volume > 0f)
+            m_backgroundMusic.Source.volume -= Time.deltaTime * FadeSpeed;
+            if (m_backgroundMusic.Source.volume > 0f)
                 yield return null;
-            
-            s.Source.Stop();
+
+            m_backgroundMusic.Source.Stop();
             break;
         }
     }

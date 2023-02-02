@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!95 &4259824400884731864
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6965882276825463466}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8953787c726a4934b8c5b62742ef9801, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4be4e57862e76ef448f98de9fd74f15f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &749435060597276509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -43,6 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -54,16 +45,6 @@ PrefabInstance:
     - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 218182889916567018, guid: 591289244833cfa4789115c66d5f42bf,
@@ -137,6 +118,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -152,6 +138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071079
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -164,16 +155,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071079
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8953787c726a4934b8c5b62742ef9801,
         type: 3}
@@ -214,6 +195,25 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7812233352216561659}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4259824400884731864
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965882276825463466}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8953787c726a4934b8c5b62742ef9801, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4be4e57862e76ef448f98de9fd74f15f, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &-8731744480997816548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
       Guid:
         Value: 2322496396216664270
   Parent: {fileID: 1253892153109093374}
---- !u!114 &-8150024299014639350
+--- !u!114 &-194181939105631154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,5 +248,5 @@ MonoBehaviour:
     Identifier:
       Path: Resources/DB/Character/CharacterTeamB|EntityView
       Guid:
-        Value: 3575563515510064731
+        Value: 3217140396193044940
   Parent: {fileID: 7149512212603135115}

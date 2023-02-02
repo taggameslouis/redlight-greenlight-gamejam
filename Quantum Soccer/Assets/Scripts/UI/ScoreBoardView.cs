@@ -12,16 +12,16 @@ public unsafe class ScoreBoardView : QuantumCallbacks
     public TextMeshProUGUI ScoreGoalAnimationTeamB;
     public GameObject GoalAnimation;
 
-    private void Start()
-    {
-        QuantumEvent.Subscribe<EventOnGoal>(this, OnGoal);
-    }
-
-    private void OnGoal(EventOnGoal e)
-    {
-        GoalAnimation.SetActive(false);
-        GoalAnimation.SetActive(true);
-    }
+    // private void Start()
+    // {
+    //     QuantumEvent.Subscribe<EventOnGoal>(this, OnGoal);
+    // }
+    //
+    // private void OnGoal(EventOnGoal e)
+    // {
+    //     GoalAnimation.SetActive(false);
+    //     GoalAnimation.SetActive(true);
+    // }
 
     public override void OnSimulateFinished(QuantumGame game, Frame f)
     {

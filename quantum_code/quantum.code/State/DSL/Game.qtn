@@ -26,12 +26,14 @@ global
 	FP GreenLightMaxDuration;
 	
 	TrafficLightState CurrentLightState;
-	FP CurrentLightDuration;	
+	FP CurrentLightDuration;
+	
+	Int32 ConnectionCount;	
 }
 
-synced event TrafficLightStateChanged { }
+synced event OnTrafficLightStateChanged { }
 
-synced event OnGoal { }
+signal OnTrafficLightStateChanged();
 
 synced event OnPlayersReady { }
 synced event OnGameStateChanged
@@ -39,6 +41,13 @@ synced event OnGameStateChanged
     GameState NewGameState;
 }
 
-signal TrafficLightStateChanged();
-signal OnGoal();
-signal OnMatchEnd();
+event OnPlayerSafe
+{
+    local player_ref player;
+}
+
+event OnGameEnded
+{
+    local player_ref player;
+    QBoolean IsEliminated;
+}

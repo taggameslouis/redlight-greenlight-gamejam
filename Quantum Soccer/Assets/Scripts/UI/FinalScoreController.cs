@@ -16,6 +16,8 @@ public class FinalScoreController : MonoBehaviour
 
     private void OnGameEnd(EventOnGameStateChanged e)
     {
+        return;
+        
         if (e.NewGameState == GameState.Ended)
         {
             var scoreA = 99; //f.Global->Players[0].PlayerScore;

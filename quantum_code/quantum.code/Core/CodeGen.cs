@@ -1537,49 +1537,51 @@ namespace Quantum {
   }
   [StructLayout(LayoutKind.Explicit)]
   public unsafe partial struct _globals_ {
-    public const Int32 SIZE = 696;
+    public const Int32 SIZE = 704;
     public const Int32 ALIGNMENT = 8;
-    [FieldOffset(24)]
+    [FieldOffset(32)]
     public FP AmberLightDuration;
+    [FieldOffset(4)]
+    public Int32 ConnectionCount;
     [FieldOffset(0)]
     public GameState CurrentGameState;
-    [FieldOffset(32)]
-    public FP CurrentLightDuration;
-    [FieldOffset(4)]
-    public TrafficLightState CurrentLightState;
     [FieldOffset(40)]
-    public FP DeltaTime;
-    [FieldOffset(232)]
-    public FrameMetaData FrameMetaData;
-    [FieldOffset(48)]
-    public FP GreenLightMaxDuration;
-    [FieldOffset(56)]
-    public FP GreenLightMinDuration;
-    [FieldOffset(64)]
-    public FP InitialCountdown;
+    public FP CurrentLightDuration;
     [FieldOffset(8)]
-    public AssetRefMap Map;
+    public TrafficLightState CurrentLightState;
+    [FieldOffset(48)]
+    public FP DeltaTime;
+    [FieldOffset(240)]
+    public FrameMetaData FrameMetaData;
+    [FieldOffset(56)]
+    public FP GreenLightMaxDuration;
+    [FieldOffset(64)]
+    public FP GreenLightMinDuration;
     [FieldOffset(72)]
-    public FP MatchTimer;
-    [FieldOffset(112)]
-    public NavMeshRegionMask NavMeshRegions;
-    [FieldOffset(400)]
-    public PhysicsSceneSettings PhysicsSettings;
+    public FP InitialCountdown;
     [FieldOffset(16)]
-    public BitSet6 PlayerLastConnectionState;
+    public AssetRefMap Map;
     [FieldOffset(80)]
-    public FP RedLightMaxDuration;
-    [FieldOffset(88)]
-    public FP RedLightMinDuration;
-    [FieldOffset(96)]
-    public FP RespawnDuration;
-    [FieldOffset(216)]
-    public RNGSession RngSession;
-    [FieldOffset(272)]
-    public BitSet1024 Systems;
-    [FieldOffset(104)]
-    public FP WaitingForConnectionsTimer;
+    public FP MatchTimer;
     [FieldOffset(120)]
+    public NavMeshRegionMask NavMeshRegions;
+    [FieldOffset(408)]
+    public PhysicsSceneSettings PhysicsSettings;
+    [FieldOffset(24)]
+    public BitSet6 PlayerLastConnectionState;
+    [FieldOffset(88)]
+    public FP RedLightMaxDuration;
+    [FieldOffset(96)]
+    public FP RedLightMinDuration;
+    [FieldOffset(104)]
+    public FP RespawnDuration;
+    [FieldOffset(224)]
+    public RNGSession RngSession;
+    [FieldOffset(280)]
+    public BitSet1024 Systems;
+    [FieldOffset(112)]
+    public FP WaitingForConnectionsTimer;
+    [FieldOffset(128)]
     [FramePrinter.FixedArrayAttribute(typeof(Input), 6)]
     private fixed Byte _input_[96];
     public FixedArray<Input> input {
@@ -1591,6 +1593,7 @@ namespace Quantum {
       unchecked { 
         var hash = 191;
         hash = hash * 31 + AmberLightDuration.GetHashCode();
+        hash = hash * 31 + ConnectionCount.GetHashCode();
         hash = hash * 31 + (Int32)CurrentGameState;
         hash = hash * 31 + CurrentLightDuration.GetHashCode();
         hash = hash * 31 + (Int32)CurrentLightState;
@@ -1617,6 +1620,7 @@ namespace Quantum {
     public static void Serialize(void* ptr, FrameSerializer serializer) {
         var p = (_globals_*)ptr;
         serializer.Stream.Serialize((Int32*)&p->CurrentGameState);
+        serializer.Stream.Serialize(&p->ConnectionCount);
         serializer.Stream.Serialize((Int32*)&p->CurrentLightState);
         AssetRefMap.Serialize(&p->Map, serializer);
         Quantum.BitSet6.Serialize(&p->PlayerLastConnectionState, serializer);
@@ -2165,9 +2169,7 @@ namespace Quantum {
   }
   public unsafe partial class Frame {
     private ISignalOnCharacterMove[] _ISignalOnCharacterMoveSystems;
-    private ISignalTrafficLightStateChanged[] _ISignalTrafficLightStateChangedSystems;
-    private ISignalOnGoal[] _ISignalOnGoalSystems;
-    private ISignalOnMatchEnd[] _ISignalOnMatchEndSystems;
+    private ISignalOnTrafficLightStateChanged[] _ISignalOnTrafficLightStateChangedSystems;
     partial void AllocGen() {
       _globals = (_globals_*)Context.Allocator.AllocAndClear(sizeof(_globals_));
     }
@@ -2191,9 +2193,7 @@ namespace Quantum {
     partial void InitGen() {
       Initialize(this, this.SimulationConfig.Entities);
       _ISignalOnCharacterMoveSystems = BuildSignalsArray<ISignalOnCharacterMove>();
-      _ISignalTrafficLightStateChangedSystems = BuildSignalsArray<ISignalTrafficLightStateChanged>();
-      _ISignalOnGoalSystems = BuildSignalsArray<ISignalOnGoal>();
-      _ISignalOnMatchEndSystems = BuildSignalsArray<ISignalOnMatchEnd>();
+      _ISignalOnTrafficLightStateChangedSystems = BuildSignalsArray<ISignalOnTrafficLightStateChanged>();
       _ComponentSignalsOnAdded = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       _ComponentSignalsOnRemoved = new ComponentReactiveCallbackInvoker[ComponentTypeId.Type.Length];
       BuildSignalsArrayOnComponentAdded<Quantum.AIBlackboardComponent>();
@@ -2260,36 +2260,18 @@ namespace Quantum {
           }
         }
       }
-      public void TrafficLightStateChanged() {
-        var array = _f._ISignalTrafficLightStateChangedSystems;
+      public void OnTrafficLightStateChanged() {
+        var array = _f._ISignalOnTrafficLightStateChangedSystems;
         for (Int32 i = 0; i < array.Length; ++i) {
           var s = array[i];
           if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.TrafficLightStateChanged(_f);
-          }
-        }
-      }
-      public void OnGoal() {
-        var array = _f._ISignalOnGoalSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnGoal(_f);
-          }
-        }
-      }
-      public void OnMatchEnd() {
-        var array = _f._ISignalOnMatchEndSystems;
-        for (Int32 i = 0; i < array.Length; ++i) {
-          var s = array[i];
-          if (_f.SystemIsEnabledInHierarchy((SystemBase)s)) {
-            s.OnMatchEnd(_f);
+            s.OnTrafficLightStateChanged(_f);
           }
         }
       }
     }
     public unsafe partial struct FrameEvents {
-      public const Int32 EVENT_TYPE_COUNT = 5;
+      public const Int32 EVENT_TYPE_COUNT = 6;
       public static Int32 GetParentEventID(Int32 eventID) {
         switch (eventID) {
           default: return -1;
@@ -2298,10 +2280,11 @@ namespace Quantum {
       public static System.Type GetEventType(Int32 eventID) {
         switch (eventID) {
           case EventCharacterStateChanged.ID: return typeof(EventCharacterStateChanged);
-          case EventTrafficLightStateChanged.ID: return typeof(EventTrafficLightStateChanged);
-          case EventOnGoal.ID: return typeof(EventOnGoal);
+          case EventOnTrafficLightStateChanged.ID: return typeof(EventOnTrafficLightStateChanged);
           case EventOnPlayersReady.ID: return typeof(EventOnPlayersReady);
           case EventOnGameStateChanged.ID: return typeof(EventOnGameStateChanged);
+          case EventOnPlayerSafe.ID: return typeof(EventOnPlayerSafe);
+          case EventOnGameEnded.ID: return typeof(EventOnGameEnded);
           default: throw new System.ArgumentOutOfRangeException("eventID");
         }
       }
@@ -2313,15 +2296,9 @@ namespace Quantum {
         _f.AddEvent(ev);
         return ev;
       }
-      public EventTrafficLightStateChanged TrafficLightStateChanged() {
+      public EventOnTrafficLightStateChanged OnTrafficLightStateChanged() {
         if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventTrafficLightStateChanged>(EventTrafficLightStateChanged.ID);
-        _f.AddEvent(ev);
-        return ev;
-      }
-      public EventOnGoal OnGoal() {
-        if (_f.IsPredicted) return null;
-        var ev = _f.Context.AcquireEvent<EventOnGoal>(EventOnGoal.ID);
+        var ev = _f.Context.AcquireEvent<EventOnTrafficLightStateChanged>(EventOnTrafficLightStateChanged.ID);
         _f.AddEvent(ev);
         return ev;
       }
@@ -2335,6 +2312,21 @@ namespace Quantum {
         if (_f.IsPredicted) return null;
         var ev = _f.Context.AcquireEvent<EventOnGameStateChanged>(EventOnGameStateChanged.ID);
         ev.NewGameState = NewGameState;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnPlayerSafe OnPlayerSafe(PlayerRef player) {
+        if (_f.Context.IsLocalPlayer(player) == false) return null;
+        var ev = _f.Context.AcquireEvent<EventOnPlayerSafe>(EventOnPlayerSafe.ID);
+        ev.player = player;
+        _f.AddEvent(ev);
+        return ev;
+      }
+      public EventOnGameEnded OnGameEnded(PlayerRef player, QBoolean IsEliminated) {
+        if (_f.Context.IsLocalPlayer(player) == false) return null;
+        var ev = _f.Context.AcquireEvent<EventOnGameEnded>(EventOnGameEnded.ID);
+        ev.player = player;
+        ev.IsEliminated = IsEliminated;
         _f.AddEvent(ev);
         return ev;
       }
@@ -2399,14 +2391,8 @@ namespace Quantum {
   public unsafe interface ISignalOnCharacterMove : ISignal {
     void OnCharacterMove(Frame f, EntityRef character, FPVector2 direction);
   }
-  public unsafe interface ISignalTrafficLightStateChanged : ISignal {
-    void TrafficLightStateChanged(Frame f);
-  }
-  public unsafe interface ISignalOnGoal : ISignal {
-    void OnGoal(Frame f);
-  }
-  public unsafe interface ISignalOnMatchEnd : ISignal {
-    void OnMatchEnd(Frame f);
+  public unsafe interface ISignalOnTrafficLightStateChanged : ISignal {
+    void OnTrafficLightStateChanged(Frame f);
   }
   public unsafe partial class EventCharacterStateChanged : EventBase {
     public new const Int32 ID = 0;
@@ -2435,12 +2421,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventTrafficLightStateChanged : EventBase {
+  public unsafe partial class EventOnTrafficLightStateChanged : EventBase {
     public new const Int32 ID = 1;
-    protected EventTrafficLightStateChanged(Int32 id, EventFlags flags) : 
+    protected EventOnTrafficLightStateChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventTrafficLightStateChanged() : 
+    public EventOnTrafficLightStateChanged() : 
         base(1, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -2458,12 +2444,12 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnGoal : EventBase {
+  public unsafe partial class EventOnPlayersReady : EventBase {
     public new const Int32 ID = 2;
-    protected EventOnGoal(Int32 id, EventFlags flags) : 
+    protected EventOnPlayersReady(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnGoal() : 
+    public EventOnPlayersReady() : 
         base(2, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -2481,12 +2467,13 @@ namespace Quantum {
       }
     }
   }
-  public unsafe partial class EventOnPlayersReady : EventBase {
+  public unsafe partial class EventOnGameStateChanged : EventBase {
     public new const Int32 ID = 3;
-    protected EventOnPlayersReady(Int32 id, EventFlags flags) : 
+    public GameState NewGameState;
+    protected EventOnGameStateChanged(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnPlayersReady() : 
+    public EventOnGameStateChanged() : 
         base(3, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
     }
     public new QuantumGame Game {
@@ -2500,18 +2487,19 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 47;
+        hash = hash * 31 + NewGameState.GetHashCode();
         return hash;
       }
     }
   }
-  public unsafe partial class EventOnGameStateChanged : EventBase {
+  public unsafe partial class EventOnPlayerSafe : EventBase {
     public new const Int32 ID = 4;
-    public GameState NewGameState;
-    protected EventOnGameStateChanged(Int32 id, EventFlags flags) : 
+    public PlayerRef player;
+    protected EventOnPlayerSafe(Int32 id, EventFlags flags) : 
         base(id, flags) {
     }
-    public EventOnGameStateChanged() : 
-        base(4, EventFlags.Server|EventFlags.Client|EventFlags.Synced) {
+    public EventOnPlayerSafe() : 
+        base(4, EventFlags.Server|EventFlags.Client) {
     }
     public new QuantumGame Game {
       get {
@@ -2524,7 +2512,34 @@ namespace Quantum {
     public override Int32 GetHashCode() {
       unchecked {
         var hash = 53;
-        hash = hash * 31 + NewGameState.GetHashCode();
+        hash = hash * 31 + player.GetHashCode();
+        return hash;
+      }
+    }
+  }
+  public unsafe partial class EventOnGameEnded : EventBase {
+    public new const Int32 ID = 5;
+    public PlayerRef player;
+    public QBoolean IsEliminated;
+    protected EventOnGameEnded(Int32 id, EventFlags flags) : 
+        base(id, flags) {
+    }
+    public EventOnGameEnded() : 
+        base(5, EventFlags.Server|EventFlags.Client) {
+    }
+    public new QuantumGame Game {
+      get {
+        return (QuantumGame)base.Game;
+      }
+      set {
+        base.Game = value;
+      }
+    }
+    public override Int32 GetHashCode() {
+      unchecked {
+        var hash = 59;
+        hash = hash * 31 + player.GetHashCode();
+        hash = hash * 31 + IsEliminated.GetHashCode();
         return hash;
       }
     }

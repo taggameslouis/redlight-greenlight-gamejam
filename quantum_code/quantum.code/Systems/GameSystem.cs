@@ -32,7 +32,7 @@ namespace Quantum
 					else
 					{
 						var playerCount = f.ComponentCount<CharacterFields>();
-						if (playerCount >= f.PlayerCount)
+						if (playerCount >= f.Global->ConnectionCount)
 						{
 							f.Global->CurrentGameState = GameState.Starting;
 							f.Events.OnGameStateChanged(f.Global->CurrentGameState);
@@ -54,7 +54,7 @@ namespace Quantum
 					{
 						f.Global->CurrentGameState = GameState.Running;
 						f.Events.OnGameStateChanged(f.Global->CurrentGameState);
-						f.Events.TrafficLightStateChanged();
+						f.Events.OnTrafficLightStateChanged();
 						
 						Log.Debug("[GameSystem] State has been changed to RUNNING");
 					}
@@ -64,17 +64,41 @@ namespace Quantum
 
 				case GameState.Running:
 				{
-					if (f.Global->MatchTimer > 0)
+					f.Global->MatchTimer -= f.DeltaTime;
+					var gameOver = false;
+
+					if (f.Global->MatchTimer <= FP._0)
 					{
-						f.Global->MatchTimer -= f.DeltaTime;
+						// Timer expired!
+						gameOver = true;
 					}
 					else
 					{
+						gameOver = true;
+						
+						// Allow early finish if all done
+						foreach (var (entity, character) in f.Unsafe.GetComponentBlockIterator<CharacterFields>())
+						{
+							if (character->State == CharacterState.ACTIVE ||
+							    character->State == CharacterState.DEAD)
+							{
+								gameOver = false;
+								break;
+							}
+						}
+					}
+
+					if (gameOver)
+					{
 						f.Global->CurrentGameState = GameState.Ended;
 						f.Events.OnGameStateChanged(f.Global->CurrentGameState);
-						
-						f.Signals.OnMatchEnd();
-						
+
+						foreach (var (entity, character) in f.Unsafe.GetComponentBlockIterator<CharacterFields>())
+						{
+							var isEliminated = character->State == CharacterState.ACTIVE;
+							f.Events.OnGameEnded(character->Player, isEliminated);
+						}
+
 						Log.Debug("[GameSystem] State has been changed to ENDED");
 					}
 
@@ -82,7 +106,9 @@ namespace Quantum
 				}
 
 				case GameState.Ended:
+				{
 					break;
+				}
 			}
 		}
 	}

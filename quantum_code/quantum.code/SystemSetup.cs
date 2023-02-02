@@ -1,10 +1,4 @@
-﻿using Photon.Deterministic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Quantum
+﻿namespace Quantum
 {
     public static class SystemSetup
     {
@@ -21,8 +15,11 @@ namespace Quantum
 
                 //new Core.NavigationSystem(),
                 new Core.EntityPrototypeSystem(),
+                
+                new Core.PlayerConnectedSystem(),
 
                 // user systems go here
+                new ConnectionsSystem(),
                 new GameSystem(),
                 new BotSDKDebuggerSystem(),
                 new MovementSystem(),
