@@ -28,6 +28,8 @@
         public void OnPlayerDataSet(Frame frame, PlayerRef player)
         {
             var data = frame.GetPlayerData(player);
+            
+            Log.Debug($"Retrieving player data for player {player} with nickname {data.Nickname}");
 
             var prototype = frame.FindAsset<EntityPrototype>(data.CharacterPrototype.Id);
             var entity = frame.Create(prototype);

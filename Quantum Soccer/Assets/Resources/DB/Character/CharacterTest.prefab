@@ -318,8 +318,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1945624800527918243, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}
+      propertyPath: PhysicsCollider.Shape2D.ShapeType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1945624800527918243, guid: 591289244833cfa4789115c66d5f42bf,
+        type: 3}
       propertyPath: PhysicsCollider.CallbackFlags.Value
-      value: 1154
+      value: 4095
+      objectReference: {fileID: 0}
+    - target: {fileID: 1945624800527918243, guid: 591289244833cfa4789115c66d5f42bf,
+        type: 3}
+      propertyPath: PhysicsCollider.Shape2D.BoxExtents.X.RawValue
+      value: 49152
+      objectReference: {fileID: 0}
+    - target: {fileID: 1945624800527918243, guid: 591289244833cfa4789115c66d5f42bf,
+        type: 3}
+      propertyPath: PhysicsCollider.Shape2D.BoxExtents.Y.RawValue
+      value: 49152
       objectReference: {fileID: 0}
     - target: {fileID: 2274052675890526172, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}

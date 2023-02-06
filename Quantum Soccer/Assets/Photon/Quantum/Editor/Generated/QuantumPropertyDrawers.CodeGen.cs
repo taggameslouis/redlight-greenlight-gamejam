@@ -71,13 +71,6 @@ namespace Quantum.Editor {
     }
   }
 
-  [CustomPropertyDrawer(typeof(AssetRefCharacterSpec))]
-  public class AssetRefCharacterSpecPropertyDrawer : PropertyDrawer {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-      AssetRefDrawer.DrawAssetRefSelector(position, property, label, typeof(CharacterSpecAsset));
-    }
-  }
-
   [CustomPropertyDrawer(typeof(AssetRefGOAPRoot))]
   public class AssetRefGOAPRootPropertyDrawer : PropertyDrawer {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {

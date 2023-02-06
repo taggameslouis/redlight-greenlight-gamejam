@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using Quantum;
 
 public class CustomCallbacks : QuantumCallbacks
@@ -16,9 +17,11 @@ public class CustomCallbacks : QuantumCallbacks
             Debug.Log("CustomCallbacks - sending player: " + lp);
             game.SendPlayerData(lp, new RuntimePlayer
             {
-                Nickname = "My Nickname",
+                Nickname = Quantum.Demo.UIMain.Client.NickName,
                 CharacterPrototype = Prototype
             });
+            
+            Debug.Log($"OnGameStart: Player {lp} sending nickname - {Quantum.Demo.UIMain.Client.NickName}");
         }
     }
 

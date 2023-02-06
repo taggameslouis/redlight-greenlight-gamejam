@@ -39,6 +39,7 @@ public unsafe class CharacterView : QuantumCallbacks
         }
 
         Nickname.text = characterFields.Nickname;
+        Debug.Log($"Nickname {characterFields.Nickname} for player {characterFields.Player}");
     }
 
     public void OnDisable()

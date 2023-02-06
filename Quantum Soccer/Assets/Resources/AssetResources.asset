@@ -306,8 +306,3 @@ MonoBehaviour:
         Id:
           Value: 4392335241930942325
       ResourcePath: DB/Character/CharacterTest
-    - Path: Resources/DB/Character/CharacterSpecAsset
-      AssetRef:
-        Id:
-          Value: 4589420026254643356
-      ResourcePath: DB/Character/CharacterSpecAsset

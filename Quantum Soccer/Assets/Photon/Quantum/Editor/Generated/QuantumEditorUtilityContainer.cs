@@ -62,7 +62,6 @@ namespace Quantum.Editor {
       public Quantum.BallOwnerIsTeammateDecision[] BallOwnerIsTeammateDecision = {};
       public Quantum.CharacterNotControlledByPlayerDecision[] CharacterNotControlledByPlayerDecision = {};
       public Quantum.KCCSettings[] KCCSettings = {};
-      public Quantum.CharacterSpec[] CharacterSpec = {};
       public Quantum.GameSpec[] GameSpec = {};
       public Quantum.SimulationConfig[] SimulationConfig = {};
       public Quantum.BinaryData[] BinaryData = {};
