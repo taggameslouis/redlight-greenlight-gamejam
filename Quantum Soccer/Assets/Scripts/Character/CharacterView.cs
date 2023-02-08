@@ -38,8 +38,19 @@ public unsafe class CharacterView : QuantumCallbacks
             Debug.Log("[CharacterView] Assigning camera target");
         }
 
-        Nickname.text = characterFields.Nickname;
-        Debug.Log($"Nickname {characterFields.Nickname} for player {characterFields.Player}");
+        var actorId = f.PlayerToActorId(characterFields.Player);
+
+        var nickname = characterFields.Nickname;
+        
+        if (actorId.HasValue &&
+            Quantum.Demo.UIMain.Client != null &&
+            Quantum.Demo.UIMain.Client.CurrentRoom.Players.TryGetValue(actorId.Value, out var player))
+        {
+            nickname = player.NickName;
+        }
+
+        Nickname.text = nickname;
+        Debug.Log($"Nickname {nickname} for player {characterFields.Player}");
     }
 
     public void OnDisable()
