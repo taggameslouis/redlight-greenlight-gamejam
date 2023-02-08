@@ -314,7 +314,7 @@ PrefabInstance:
     - target: {fileID: 1945624800527918243, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}
       propertyPath: PhysicsCollider.Layer
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1945624800527918243, guid: 591289244833cfa4789115c66d5f42bf,
         type: 3}

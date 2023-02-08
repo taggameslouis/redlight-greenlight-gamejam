@@ -7,18 +7,17 @@ public class CameraBehaviour : MonoBehaviour
 {
     public GameObject FocusTarget;
     public float Velocity = 10;
-    public float MaxX;
-    public float MaxZ;
-    public float MinZ;
+
+    public Vector3 DefaultOffset;
 
     private Vector3 _offset;
     private Vector3 InitialRotation;
     
     private void Start()
     {
-        _offset = transform.position;
+        _offset = DefaultOffset;
         //QuantumEvent.Subscribe<EventCharacterFall>(this, OnCharacterFall);
-        
+
     }
 
     private void LateUpdate()

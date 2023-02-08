@@ -92,9 +92,9 @@ MonoBehaviour:
   SourceCollider: {fileID: 0}
   Size:
     X:
-      RawValue: 0
+      RawValue: 131072
     Y:
-      RawValue: 0
+      RawValue: 131072
   PositionOffset:
     X:
       RawValue: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   RotationOffset:
     RawValue: 0
   Height:
-    RawValue: 0
+    RawValue: 131072
   Settings:
     MutableMode: 0
     PhysicsMaterial:

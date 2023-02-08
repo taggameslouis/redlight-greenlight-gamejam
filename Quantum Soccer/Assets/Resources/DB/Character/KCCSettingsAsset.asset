@@ -19,7 +19,7 @@ MonoBehaviour:
         Value: 157212461012189321
     Radius:
       RawValue: 65536
-    MaxContacts: 2
+    MaxContacts: 3
     AllowedPenetration:
       RawValue: 6553
     CorrectionSpeed:
@@ -28,4 +28,4 @@ MonoBehaviour:
       RawValue: 655360
     Acceleration:
       RawValue: 6553600
-    Debug: 0
+    Debug: 1

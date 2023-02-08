@@ -37,6 +37,8 @@ public class PerlinNoiseGen : MonoBehaviour
     public bool m_execute;
     public Task m_task;
 
+    public bool m_flatten = false;
+
     void Awake()
     {
     }
@@ -75,6 +77,9 @@ public class PerlinNoiseGen : MonoBehaviour
                 if (value < m_threshold)
                     continue;
 
+                if(m_flatten)
+                    value = 0f;
+
                 var weight = Random.Range(0, 100);
                 GameObject prefab = null;
                 foreach (var entry in m_prefabs)
@@ -86,7 +91,7 @@ public class PerlinNoiseGen : MonoBehaviour
                     }
                 }
                 
-                var position = new Vector3(x * m_spacing, 1f, y * m_spacing) + offset;
+                var position = new Vector3(x * m_spacing, value, y * m_spacing) + offset;
 
                 var crate = GameObject.Instantiate(prefab, position, Quaternion.identity, container.transform);
                 crate.name = crate.name.Replace("(Clone)", $"[{x}, {y}]");

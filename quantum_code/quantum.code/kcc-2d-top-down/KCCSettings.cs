@@ -114,85 +114,85 @@ namespace Quantum
       movementPack.Direction = direction;
       Shape2D shape = Shape2D.CreateCircle(Radius);
 
-//      var hits = f.Physics2D.OverlapShape(transform->Position, FP._0, shape, options: QueryOptions.HitAll | QueryOptions.ComputeDetailedInfo);
-//      int count = Math.Min(MaxContacts, hits.Count);
+      var hits = f.Physics2D.OverlapShape(transform->Position, FP._0, shape, options: QueryOptions.HitAll | QueryOptions.ComputeDetailedInfo);
+      int count = Math.Min(MaxContacts, hits.Count);
 
-//      if (hits.Count > 0)
-//      {
-//        Boolean initialized = false;
-//        hits.Sort(transform->Position);
-//        for (int i = 0; i < hits.Count && count > 0; i++)
-//        {
-//          // ignore triggers
-//          if (hits[i].IsTrigger)
-//          {
-//            // callback here...
-//            continue;
-//          }
+      if (hits.Count > 0)
+      {
+        Boolean initialized = false;
+        hits.Sort(transform->Position);
+        for (int i = 0; i < hits.Count && count > 0; i++)
+        {
+          // ignore triggers
+          if (hits[i].IsTrigger)
+          {
+            // callback here...
+            continue;
+          }
 
-//          // ignoring "self" contact
-//          if (hits[i].Entity == entity)
-//          {
-//            continue;
-//          }
+          // ignoring "self" contact
+          if (hits[i].Entity == entity)
+          {
+            continue;
+          }
  
-//          var contactPoint = hits[i].Point;
-//          var contactToCenter = transform->Position - contactPoint;
-//          var localDiff = contactToCenter.Magnitude - Radius;
+          var contactPoint = hits[i].Point;
+          var contactToCenter = transform->Position - contactPoint;
+          var localDiff = contactToCenter.Magnitude - Radius;
 
-//          if (hits[i].Entity != default && f.Exists(hits[i].Entity) == true)
-//          {
-//            var otherTransform = f.Get<Transform2D>(hits[i].Entity);
-//            var centerToCenter = otherTransform.Position - transform->Position;
-//            if (centerToCenter.Magnitude < Radius * FP._0_75)
-//            {
-//              localDiff = -Radius * 2;
-//            }
-//          }
+          if (hits[i].Entity != default && f.Exists(hits[i].Entity) == true)
+          {
+            var otherTransform = f.Get<Transform2D>(hits[i].Entity);
+            var centerToCenter = otherTransform.Position - transform->Position;
+            if (centerToCenter.Magnitude < Radius * FP._0_75)
+            {
+              localDiff = -Radius * 2;
+            }
+          }
 
-//#if DEBUG
-//          if (Debug)
-//          {
-//            Draw.Circle(contactPoint, FP._0_10, ColorRGBA.Red);
-//          }
-//#endif
+#if DEBUG
+          if (Debug)
+          {
+            Draw.Circle(contactPoint, FP._0_10, ColorRGBA.Red);
+          }
+#endif
 
-//          var localNormal = contactToCenter.Normalized;
+          var localNormal = contactToCenter.Normalized;
 
-//          count--;
+          count--;
 
-//          // define movement type
-//          if (!initialized)
-//          {
-//            initialized = true;
+          // define movement type
+          if (!initialized)
+          {
+            initialized = true;
 
-//            if (direction != default)
-//            {
-//              var angle = FPVector2.RadiansSkipNormalize(direction.Normalized, localNormal);
-//              if (angle >= FP.Rad_90)
-//              {
-//                var d = FPVector2.Dot(direction, localNormal);
-//                var tangentVelocity = direction - localNormal * d;
-//                if (tangentVelocity.SqrMagnitude > FP.EN4)
-//                {
-//                  movementPack.Direction = tangentVelocity.Normalized;
-//                  movementPack.Type = KCCMovementType.Tangent;
-//                }
-//                else
-//                {
-//                  movementPack.Direction = default;
-//                  movementPack.Type = KCCMovementType.None;
-//                }
+            if (direction != default)
+            {
+              var angle = FPVector2.RadiansSkipNormalize(direction.Normalized, localNormal);
+              if (angle >= FP.Rad_90)
+              {
+                var d = FPVector2.Dot(direction, localNormal);
+                var tangentVelocity = direction - localNormal * d;
+                if (tangentVelocity.SqrMagnitude > FP.EN4)
+                {
+                  movementPack.Direction = tangentVelocity.Normalized;
+                  movementPack.Type = KCCMovementType.Tangent;
+                }
+                else
+                {
+                  movementPack.Direction = default;
+                  movementPack.Type = KCCMovementType.None;
+                }
 
-//                movementPack.MaxPenetration = FPMath.Abs(localDiff);
-//              }
-//            }
-//          }
-//          // any real contact contributes to correction and average normal
-//          var localCorrection = localNormal * -localDiff;
-//          movementPack.Correction += localCorrection;
-//        }
-//      }
+                movementPack.MaxPenetration = FPMath.Abs(localDiff);
+              }
+            }
+          }
+          // any real contact contributes to correction and average normal
+          var localCorrection = localNormal * -localDiff;
+          movementPack.Correction += localCorrection;
+        }
+      }
 
       return movementPack;
     }
